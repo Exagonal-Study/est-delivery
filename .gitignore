@@ -1,0 +1,6 @@
+.gradle
+build
+HELP.md
+.DS_Store
+.idea
+/src/main/.azure
