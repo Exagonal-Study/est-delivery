@@ -26,12 +26,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("com.h2database:h2")
 
+    implementation("com.github.f4b6a3:tsid-creator:5.2.6")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter", "junit-jupiter", "5.8.2")
     testImplementation("org.assertj", "assertj-core", "3.22.0")
     testImplementation("io.kotest", "kotest-runner-junit5", "5.4.0")
 }
 
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
+}
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
