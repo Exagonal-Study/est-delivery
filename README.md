@@ -63,10 +63,8 @@ classDiagram
 			-String name
 			-String description
 			-Enum couponType
-			-boolean isUsed
 			+isPublished() boolean
 			+isHandOut() boolean
-			+isUsed() boolean
     }
 
     class FixDiscountCoupon{
