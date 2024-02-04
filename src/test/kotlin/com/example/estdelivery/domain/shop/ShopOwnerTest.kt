@@ -13,8 +13,8 @@ class ShopOwnerTest : FreeSpec({
     "모든 회원에게 쿠폰을 나눠줄 수 있다." {
         // given
         val 단골_리스트 = RoyalCustomers()
-        val 홍길동 = Member("홍길동", CouponBook())
-        val 김철수 = Member("김철수", CouponBook())
+        val 홍길동 = Member(1, "홍길동", CouponBook())
+        val 김철수 = Member(2, "김철수", CouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수)
 
         val 가게_주인 = ShopOwner(Shop("매장", CouponBook(), CouponBook(), CouponBook(),단골_리스트))

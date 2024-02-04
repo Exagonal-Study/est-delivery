@@ -13,9 +13,9 @@ class RoyalCustomersTest : FreeSpec({
     "모든 회원에게 쿠폰을 나눠줄 수 있다." {
         // given
         val 단골_리스트 = RoyalCustomers()
-        val 홍길동 = Member("홍길동", CouponBook())
-        val 김철수 = Member("김철수", CouponBook())
-        val 이영희 = Member("이영희", CouponBook())
+        val 홍길동 = Member(1, "홍길동", CouponBook())
+        val 김철수 = Member(2, "김철수", CouponBook())
+        val 이영희 = Member(3, "이영희", CouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수, 이영희)
         val coupon = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
 

@@ -12,7 +12,7 @@ class MemberTest : FreeSpec({
     val coupon = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
 
     beforeTest {
-        member = Member("홍길동", CouponBook())
+        member = Member(1, "홍길동", CouponBook())
     }
 
     "쿠폰을 추가할 수 있다." {

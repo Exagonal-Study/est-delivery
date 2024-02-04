@@ -87,6 +87,10 @@ classDiagram
 			-Shop shop
 			+handOutCouponToRoyalCustomersInShop(Coupon coupon) void
 			+publishCouponInShop(Coupon coupon) void
+			+addRoyalCustomer(Member member...) void
+			+showPublishedCoupons() List~Coupon~
+			+showRoyalCustomers() List~Member~
+			+showHandOutCouponBook() CouponBook
 		}
 
 		class Shop{
@@ -99,7 +103,9 @@ classDiagram
 			+alreadyUsedCoupon(Coupon coupon) boolean
 			+handOutPublishedCoupon(Coupon coupon) Coupon
 			+handOutCouponToRoyalCustomers(Coupon coupon) void
+            +addRoyalCustomer(Member member...) void
 			+showPublishedCoupons() List~Coupon~
+            +showRoyalCustomers() List~Member~
 			+showRoyalCustomers() List~Member~
 		}
 

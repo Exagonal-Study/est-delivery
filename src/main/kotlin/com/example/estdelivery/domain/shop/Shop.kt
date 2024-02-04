@@ -5,7 +5,6 @@ import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.member.Member
 
 class Shop(
-    private val shopName: String,
     private val publishedCoupons: CouponBook,
     private val handOutCoupon: CouponBook,
     private val usedCouponBook: CouponBook,
@@ -29,6 +28,10 @@ class Shop(
         }
 
         usedCouponBook.addCoupon(coupon)
+    }
+
+    fun addRoyalCustomers(vararg members: Member) {
+        royalCustomers.addRoyalCustomers(*members)
     }
 
     fun handOutCouponToRoyalCustomers(coupon: Coupon) {
