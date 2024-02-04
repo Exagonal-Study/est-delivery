@@ -66,7 +66,7 @@ classDiagram
 			-boolean isUsed
 			+isPublished() boolean
 			+isHandOut() boolean
-			+isUser() boolean
+			+isUsed() boolean
     }
 
     class FixDiscountCoupon{
