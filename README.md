@@ -83,38 +83,38 @@ classDiagram
 			+receiveCoupon(Coupon coupon) void
     }
 
-		class ShopOwner{
-			-Shop shop
-			+handOutCouponToRoyalCustomersInShop(Coupon coupon) void
-			+publishCouponInShop(Coupon coupon) void
-			+addRoyalCustomer(Member member...) void
-			+showPublishedCoupons() List~Coupon~
-			+showRoyalCustomers() List~Member~
-			+showHandOutCouponBook() CouponBook
-		}
+    class ShopOwner{
+        -Shop shop
+        +handOutCouponToRoyalCustomersInShop(Coupon coupon) void
+        +publishCouponInShop(Coupon coupon) void
+        +addRoyalCustomerInShop(Member member...) void
+        +showPublishedCouponsInShop() List~Coupon~
+        +showHandOutCouponBookInShop() CouponBook
+        +showRoyalCustomersInShop() List~Member~
+    }
 
-		class Shop{
-			-String shopName
-			-CouponBook publishedCoupons
-            -CouponBook handOutCouponBook
-			-CouponBook usedCouponBook
-			-RoyalCustomers royalCustomers
-			+publishCoupon(Coupon coupon) void
-			+alreadyUsedCoupon(Coupon coupon) boolean
-			+handOutPublishedCoupon(Coupon coupon) Coupon
-			+handOutCouponToRoyalCustomers(Coupon coupon) void
-            +addRoyalCustomer(Member member...) void
-			+showPublishedCoupons() List~Coupon~
-            +showRoyalCustomers() List~Member~
-			+showRoyalCustomers() List~Member~
-		}
+    class Shop{
+        -String shopName
+        -CouponBook publishedCoupons
+        -CouponBook handOutCouponBook
+        -CouponBook usedCouponBook
+        -RoyalCustomers royalCustomers
+        +publishCoupon(Coupon coupon) void
+        +handOutCouponToRoyalCustomers(Coupon coupon) void
+        +alreadyUsedCoupon(Coupon coupon) boolean
+        +useCoupon(Coupon coupon) Coupon
+        +addRoyalCustomer(Member member...) void
+        +showPublishedCoupons() List~Coupon~
+        +showHandOutCoupons() List~Coupon~
+        +showRoyalCustomers() List~Member~
+    }
 
-		class RoyalCustomers{
-			-List~Member~ members
-			+handOutCoupon(Coupon coupon) void
-			+addMember(Member member) void
-			+showRoyalCustomers() List~Member~
-		}
+    class RoyalCustomers{
+        -List~Member~ members
+        +handOutCoupon(Coupon coupon) void
+        +addMember(Member member) void
+        +showRoyalCustomers() List~Member~
+    }
 
 ```
 
