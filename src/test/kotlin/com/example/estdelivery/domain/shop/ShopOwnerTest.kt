@@ -5,7 +5,6 @@ import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.coupon.CouponType
 import com.example.estdelivery.domain.member.Member
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
 class ShopOwnerTest : FreeSpec({
@@ -17,7 +16,7 @@ class ShopOwnerTest : FreeSpec({
         val 김철수 = Member(2, "김철수", CouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수)
 
-        val 가게_주인 = ShopOwner(Shop("매장", CouponBook(), CouponBook(), CouponBook(),단골_리스트))
+        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), CouponBook(), 단골_리스트))
         val 나눠줄_쿠폰 = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
 
         // when
@@ -29,7 +28,7 @@ class ShopOwnerTest : FreeSpec({
 
     "쿠폰을 가게에 게시한다." {
         // given
-        val 가게_주인 = ShopOwner(Shop("매장", CouponBook(), CouponBook(), CouponBook(), RoyalCustomers()))
+        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), CouponBook(), RoyalCustomers()))
         val 게시할_쿠폰 = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED)
 
         // when

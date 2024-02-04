@@ -4,6 +4,7 @@ import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.coupon.CouponType
 import com.example.estdelivery.domain.member.Member
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -26,5 +27,15 @@ class RoyalCustomersTest : FreeSpec({
         for (royalMember in 단골_리스트.showRoyalCustomers()) {
             royalMember.showMyCouponBook().showCoupons().contains(coupon) shouldBe true
         }
+    }
+
+    "이미 추가된 회원은 추가할 수 없다." {
+        // given
+        val 단골_리스트 = RoyalCustomers()
+        val 홍길동 = Member(1, "홍길동", CouponBook())
+        단골_리스트.addRoyalCustomers(홍길동)
+
+        // when
+        shouldThrow<IllegalArgumentException> { 단골_리스트.addRoyalCustomers(홍길동) }
     }
 })

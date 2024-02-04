@@ -4,17 +4,22 @@ import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.member.Member
 
 class RoyalCustomers(
-    private val members: MutableList<Member> = mutableListOf()
+    private val customers: MutableList<Member> = mutableListOf()
 ) {
     fun handOutCoupon(coupon: Coupon) {
-        members.forEach { it.receiveCoupon(coupon) }
+        customers.forEach { it.receiveCoupon(coupon) }
     }
 
-    fun addRoyalCustomers(vararg member: Member) {
-        members.addAll(member)
+    fun addRoyalCustomers(vararg members: Member) {
+        for (member in members) {
+            if (customers.contains(member)) {
+                throw IllegalArgumentException("이미 등록된 회원입니다.")
+            }
+        }
+        customers.addAll(members)
     }
 
     fun showRoyalCustomers(): List<Member> {
-        return members.toList()
+        return customers.toList()
     }
 }
