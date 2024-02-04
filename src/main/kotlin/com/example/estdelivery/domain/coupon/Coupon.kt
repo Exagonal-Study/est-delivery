@@ -13,6 +13,7 @@ sealed class Coupon(
         override val description: String,
         couponType: CouponType
     ) : Coupon(id, name, description, couponType)
+
     class FixDiscountCoupon(
         id: Long,
         val discountAmount: Int,
