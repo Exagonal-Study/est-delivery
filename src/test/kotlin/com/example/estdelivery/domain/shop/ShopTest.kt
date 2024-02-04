@@ -58,6 +58,7 @@ class ShopTest : FreeSpec({
         매장.handOutCouponToRoyalCustomers(나눠줄_쿠폰_발급)
 
         // then
+        매장.showHandOutCoupon().contains(나눠줄_쿠폰_발급) shouldBe true
         for (royalMember in 매장.showRoyalCustomers()) {
             royalMember.showMyCouponBook().showCoupons().contains(나눠줄_쿠폰_발급) shouldBe true
         }

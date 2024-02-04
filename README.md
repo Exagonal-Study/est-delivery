@@ -85,8 +85,8 @@ classDiagram
 
 		class ShopOwner{
 			-Shop shop
-			+handOutCouponToRoyalCustomersInShop(Shop shop) void
-			+publishCouponInShop(Shop shop, Coupon coupon) void
+			+handOutCouponToRoyalCustomersInShop(Coupon coupon) void
+			+publishCouponInShop(Coupon coupon) void
 		}
 
 		class Shop{

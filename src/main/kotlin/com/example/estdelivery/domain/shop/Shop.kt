@@ -32,6 +32,7 @@ class Shop(
     }
 
     fun handOutCouponToRoyalCustomers(coupon: Coupon) {
+        handOutCoupon.addCoupon(coupon)
         royalCustomers.handOutCoupon(coupon)
     }
 
@@ -41,5 +42,9 @@ class Shop(
 
     fun showRoyalCustomers(): List<Member> {
         return royalCustomers.showRoyalCustomers()
+    }
+
+    fun showHandOutCoupon(): List<Coupon> {
+        return handOutCoupon.showCoupons()
     }
 }
