@@ -1,8 +1,8 @@
 package com.example.estdelivery.domain.coupon
 
-data class Coupon(
-    val name: String,
-    val description: String,
+open class Coupon(
+    open val name: String,
+    open val description: String,
     private val couponType: CouponType
 ) {
     fun isPublished(): Boolean {
