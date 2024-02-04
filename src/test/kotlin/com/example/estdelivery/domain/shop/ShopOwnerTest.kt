@@ -37,4 +37,18 @@ class ShopOwnerTest : FreeSpec({
         // then
         가게_주인.showPublishedCouponsInShop().contains(게시할_쿠폰) shouldBe true
     }
+
+    "단골 회원을 가게에 추가한다." {
+        // given
+        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), CouponBook(), RoyalCustomers()))
+        val 홍길동 = Member(1, "홍길동", CouponBook())
+        val 김철수 = Member(2, "김철수", CouponBook())
+
+        // when
+        가게_주인.addRoyalCustomersInShop(홍길동, 김철수)
+
+        // then
+        가게_주인.showRoyalCustomersInShop().contains(홍길동) shouldBe true
+        가게_주인.showRoyalCustomersInShop().contains(김철수) shouldBe true
+    }
 })
