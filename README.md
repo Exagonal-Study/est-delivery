@@ -104,6 +104,8 @@ classDiagram
 		class RoyalCustomers{
 			-List~Member~ members
 			+handOutCoupon(Coupon coupon) void
+			+addMember(Member member) void
+			+showRoyalCustomers() List~Member~
 		}
 
 ```
