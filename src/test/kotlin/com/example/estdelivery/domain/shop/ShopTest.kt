@@ -20,7 +20,7 @@ class ShopTest : FreeSpec({
         val 김철수 = Member(2, "김철수", CouponBook())
         val 이영희 = Member(3, "이영희", CouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수, 이영희)
-        매장 = Shop("매장", CouponBook(), CouponBook(), CouponBook(), 단골_리스트)
+        매장 = Shop(CouponBook(), CouponBook(), CouponBook(), 단골_리스트)
     }
 
     "쿠폰을 게시할 수 있다." {
@@ -65,10 +65,8 @@ class ShopTest : FreeSpec({
     }
 
     "단골 회원을 추가할 수 있다." {
-        val 홍길동 = Member(1, "홍길동", CouponBook())
-        val 김철수 = Member(2, "김철수", CouponBook())
-        매장.addRoyalCustomers(홍길동, 김철수)
-        매장.showRoyalCustomers().contains(홍길동) shouldBe true
-        매장.showRoyalCustomers().contains(김철수) shouldBe true
+        val 새로운_철수 = Member(14, "새로운 철수", CouponBook())
+        매장.addRoyalCustomers(새로운_철수)
+        매장.showRoyalCustomers().contains(새로운_철수) shouldBe true
     }
 })
