@@ -3,6 +3,10 @@ package com.example.estdelivery.domain.coupon
 class CouponBook(
     private val coupons: MutableList<Coupon> = mutableListOf()
 ) {
+    fun showCoupons(): List<Coupon> {
+        return coupons.toList()
+    }
+
     fun deleteCoupon(coupon: Coupon) {
         if (!coupons.contains(coupon)) {
             throw IllegalArgumentException("존재하지 않는 쿠폰입니다.")
