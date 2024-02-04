@@ -92,13 +92,15 @@ classDiagram
 		class Shop{
 			-String shopName
 			-CouponBook publishedCoupons
+            -CouponBook handOutCouponBook
 			-CouponBook usedCouponBook
 			-RoyalCustomers royalCustomers
 			+publishCoupon(Coupon coupon) void
 			+alreadyUsedCoupon(Coupon coupon) boolean
 			+handOutPublishedCoupon(Coupon coupon) Coupon
 			+handOutCouponToRoyalCustomers(Coupon coupon) void
-			+showPublishedCoupon() CouponBook
+			+showPublishedCoupons() List~Coupon~
+			+showRoyalCustomers() List~Member~
 		}
 
 		class RoyalCustomers{
