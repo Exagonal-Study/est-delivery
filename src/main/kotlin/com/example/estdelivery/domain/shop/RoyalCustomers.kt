@@ -4,7 +4,7 @@ import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.member.Member
 
 class RoyalCustomers(
-    private val customers: MutableList<Member> = mutableListOf()
+    private var customers: List<Member> = listOf()
 ) {
     fun handOutCoupon(coupon: Coupon) {
         customers.forEach { it.receiveCoupon(coupon) }
@@ -16,7 +16,7 @@ class RoyalCustomers(
                 throw IllegalArgumentException("이미 등록된 회원입니다.")
             }
         }
-        customers.addAll(members)
+        customers = customers + members
     }
 
     fun showRoyalCustomers(): List<Member> {
