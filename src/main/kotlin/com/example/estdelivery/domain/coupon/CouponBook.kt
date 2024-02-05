@@ -1,7 +1,7 @@
 package com.example.estdelivery.domain.coupon
 
 class CouponBook(
-    private val coupons: MutableList<Coupon> = mutableListOf()
+    private var coupons: List<Coupon> = listOf()
 ) {
     fun showCoupons(): List<Coupon> {
         return coupons.toList()
@@ -11,13 +11,13 @@ class CouponBook(
         if (!coupons.contains(coupon)) {
             throw IllegalArgumentException("존재하지 않는 쿠폰입니다.")
         }
-        coupons.remove(coupon)
+        coupons = coupons - coupon
     }
 
     fun addCoupon(coupon: Coupon) {
         if (coupons.contains(coupon)) {
             throw IllegalArgumentException("이미 존재하는 쿠폰입니다.")
         }
-        coupons.add(coupon)
+        coupons = coupons + coupon
     }
 }
