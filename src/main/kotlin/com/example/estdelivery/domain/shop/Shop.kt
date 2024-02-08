@@ -7,27 +7,15 @@ import com.example.estdelivery.domain.member.Member
 class Shop(
     private val publishedCoupons: CouponBook,
     private val handOutCoupon: CouponBook,
-    private val usedCouponBook: CouponBook,
+    private val usedCouponBook: UsedCouponBook,
     private val royalCustomers: RoyalCustomers
 ) {
     fun publishCoupon(coupon: Coupon) {
         publishedCoupons.addCoupon(coupon)
     }
 
-    fun alreadyUsedCoupon(coupon: Coupon): Boolean {
-        return usedCouponBook.showCoupons().contains(coupon)
-    }
-
     fun useCoupon(coupon: Coupon) {
-        if (usedCouponBook.showCoupons().contains(coupon)) {
-            throw IllegalArgumentException("이미 사용한 쿠폰입니다.")
-        }
-
-        if (!(publishedCoupons.showCoupons().contains(coupon) || handOutCoupon.showCoupons().contains(coupon))) {
-            throw IllegalArgumentException("게시하지 않은 쿠폰입니다.")
-        }
-
-        usedCouponBook.addCoupon(coupon)
+        usedCouponBook.useCoupon(coupon, CouponBook(publishedCoupons + handOutCoupon))
     }
 
     fun addRoyalCustomers(vararg members: Member) {

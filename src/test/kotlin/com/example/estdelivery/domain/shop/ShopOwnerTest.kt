@@ -16,7 +16,7 @@ class ShopOwnerTest : FreeSpec({
         val 김철수 = Member(2, "김철수", CouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수)
 
-        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), CouponBook(), 단골_리스트))
+        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), UsedCouponBook(), 단골_리스트))
         val 나눠줄_쿠폰 = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
 
         // when
@@ -28,7 +28,7 @@ class ShopOwnerTest : FreeSpec({
 
     "쿠폰을 가게에 게시한다." {
         // given
-        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), CouponBook(), RoyalCustomers()))
+        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), UsedCouponBook(), RoyalCustomers()))
         val 게시할_쿠폰 = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED)
 
         // when
@@ -40,7 +40,7 @@ class ShopOwnerTest : FreeSpec({
 
     "단골 회원을 가게에 추가한다." {
         // given
-        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), CouponBook(), RoyalCustomers()))
+        val 가게_주인 = ShopOwner(Shop(CouponBook(), CouponBook(), UsedCouponBook(), RoyalCustomers()))
         val 홍길동 = Member(1, "홍길동", CouponBook())
         val 김철수 = Member(2, "김철수", CouponBook())
 

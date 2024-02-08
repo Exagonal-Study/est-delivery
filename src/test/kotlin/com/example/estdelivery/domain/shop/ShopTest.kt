@@ -20,18 +20,12 @@ class ShopTest : FreeSpec({
         val 김철수 = Member(2, "김철수", CouponBook())
         val 이영희 = Member(3, "이영희", CouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수, 이영희)
-        매장 = Shop(CouponBook(), CouponBook(), CouponBook(), 단골_리스트)
+        매장 = Shop(CouponBook(), CouponBook(), UsedCouponBook(), 단골_리스트)
     }
 
     "쿠폰을 게시할 수 있다." {
         매장.publishCoupon(게시할_쿠폰)
         매장.showPublishedCoupons().contains(게시할_쿠폰) shouldBe true
-    }
-
-    "이미 사용한 쿠폰인지 확인할 수 있다." {
-        매장.publishCoupon(게시할_쿠폰)
-        매장.useCoupon(게시할_쿠폰)
-        매장.alreadyUsedCoupon(게시할_쿠폰) shouldBe true
     }
 
     "이미 사용한 쿠폰은 재사용 할 수 없다." {
