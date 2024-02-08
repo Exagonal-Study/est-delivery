@@ -6,18 +6,18 @@ import com.example.estdelivery.domain.coupon.CouponBook
 class Member(
     val id: Long,
     val name: String,
-    private val unUsedCouponBook: CouponBook
+    private val unUsedCouponBook: UnUsedCouponBook
 ) {
     fun useCoupon(coupon: Coupon) {
-        unUsedCouponBook.deleteCoupon(coupon)
+        unUsedCouponBook.deleteUnUsedCoupon(coupon)
     }
 
-    fun showMyCouponBook(): CouponBook {
-        return unUsedCouponBook
+    fun showMyCouponBook(): List<Coupon> {
+        return unUsedCouponBook.showUnUsedCoupons()
     }
 
     fun receiveCoupon(coupon: Coupon) {
-        unUsedCouponBook.addCoupon(coupon)
+        unUsedCouponBook.addUnUsedCoupon(coupon)
     }
 
     override fun equals(other: Any?): Boolean {
