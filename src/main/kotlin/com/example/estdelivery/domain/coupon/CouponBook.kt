@@ -20,8 +20,4 @@ class CouponBook(
         }
         coupons = coupons + coupon
     }
-
-    operator fun plus(addedCoupons: CouponBook): List<Coupon> {
-        return coupons + addedCoupons.showCoupons()
-    }
 }

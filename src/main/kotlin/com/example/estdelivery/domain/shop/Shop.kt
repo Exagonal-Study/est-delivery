@@ -5,13 +5,13 @@ import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.member.Member
 
 class Shop(
-    private val publishedCoupons: CouponBook,
+    private val publishedCoupons: PublishedCouponBook,
     private val handOutCoupon: CouponBook,
     private val usedCouponBook: UsedCouponBook,
     private val royalCustomers: RoyalCustomers
 ) {
     fun publishCoupon(coupon: Coupon) {
-        publishedCoupons.addCoupon(coupon)
+        publishedCoupons.publishCoupon(coupon)
     }
 
     fun useCoupon(coupon: Coupon) {
@@ -28,7 +28,7 @@ class Shop(
     }
 
     fun showPublishedCoupons(): List<Coupon> {
-        return publishedCoupons.showCoupons()
+        return publishedCoupons.showPublishedCoupons()
     }
 
     fun showRoyalCustomers(): List<Member> {
@@ -38,4 +38,8 @@ class Shop(
     fun showHandOutCoupon(): List<Coupon> {
         return handOutCoupon.showCoupons()
     }
+}
+
+private operator fun PublishedCouponBook.plus(coupon: CouponBook): List<Coupon> {
+    return showPublishedCoupons() + coupon.showCoupons()
 }
