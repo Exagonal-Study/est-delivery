@@ -6,7 +6,7 @@ import com.example.estdelivery.domain.member.Member
 
 class Shop(
     private val publishedCoupons: PublishedCouponBook,
-    private val handOutCoupon: HandOutCoupon,
+    private val handOutCouponBook: HandOutCouponBook,
     private val usedCouponBook: UsedCouponBook,
     private val royalCustomers: RoyalCustomers
 ) {
@@ -15,7 +15,7 @@ class Shop(
     }
 
     fun useCoupon(coupon: Coupon) {
-        usedCouponBook.useCoupon(coupon, CouponBook(publishedCoupons + handOutCoupon))
+        usedCouponBook.useCoupon(coupon, CouponBook(publishedCoupons + handOutCouponBook))
     }
 
     fun addRoyalCustomers(vararg members: Member) {
@@ -23,7 +23,7 @@ class Shop(
     }
 
     fun handOutCouponToRoyalCustomers(coupon: Coupon) {
-        handOutCoupon.addHandOutCoupon(coupon)
+        handOutCouponBook.addHandOutCoupon(coupon)
         royalCustomers.handOutCoupon(coupon)
     }
 
@@ -36,10 +36,10 @@ class Shop(
     }
 
     fun showHandOutCoupon(): List<Coupon> {
-        return handOutCoupon.showHandOutCoupon()
+        return handOutCouponBook.showHandOutCoupon()
     }
 }
 
-private operator fun PublishedCouponBook.plus(coupon: HandOutCoupon): List<Coupon> {
+private operator fun PublishedCouponBook.plus(coupon: HandOutCouponBook): List<Coupon> {
     return showPublishedCoupons() + coupon.showHandOutCoupon()
 }
