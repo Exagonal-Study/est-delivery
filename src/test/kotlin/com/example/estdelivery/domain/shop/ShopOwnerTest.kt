@@ -3,7 +3,7 @@ package com.example.estdelivery.domain.shop
 import com.example.estdelivery.domain.fixture.게시할_쿠폰
 import com.example.estdelivery.domain.fixture.나눠줄_쿠폰
 import com.example.estdelivery.domain.member.Member
-import com.example.estdelivery.domain.member.UnUsedCouponBook
+import com.example.estdelivery.domain.member.UnusedCouponBook
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
@@ -12,8 +12,8 @@ class ShopOwnerTest : FreeSpec({
     "모든 회원에게 쿠폰을 나눠줄 수 있다." {
         // given
         val 단골_리스트 = RoyalCustomers()
-        val 홍길동 = Member(1, "홍길동", UnUsedCouponBook())
-        val 김철수 = Member(2, "김철수", UnUsedCouponBook())
+        val 홍길동 = Member(1, "홍길동", UnusedCouponBook())
+        val 김철수 = Member(2, "김철수", UnusedCouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수)
 
         val 가게_주인 = ShopOwner(Shop(PublishedCouponBook(), HandOutCouponBook(), UsedCouponBook(), 단골_리스트))
@@ -39,8 +39,8 @@ class ShopOwnerTest : FreeSpec({
     "단골 회원을 가게에 추가한다." {
         // given
         val 가게_주인 = ShopOwner(Shop(PublishedCouponBook(), HandOutCouponBook(), UsedCouponBook(), RoyalCustomers()))
-        val 홍길동 = Member(1, "홍길동", UnUsedCouponBook())
-        val 김철수 = Member(2, "김철수", UnUsedCouponBook())
+        val 홍길동 = Member(1, "홍길동", UnusedCouponBook())
+        val 김철수 = Member(2, "김철수", UnusedCouponBook())
 
         // when
         가게_주인.addRoyalCustomersInShop(홍길동, 김철수)

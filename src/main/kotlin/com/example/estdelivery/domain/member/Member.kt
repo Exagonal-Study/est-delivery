@@ -1,23 +1,22 @@
 package com.example.estdelivery.domain.member
 
 import com.example.estdelivery.domain.coupon.Coupon
-import com.example.estdelivery.domain.coupon.CouponBook
 
 class Member(
     val id: Long,
     val name: String,
-    private val unUsedCouponBook: UnUsedCouponBook
+    private val unusedCouponBook: UnusedCouponBook
 ) {
     fun useCoupon(coupon: Coupon) {
-        unUsedCouponBook.deleteUnUsedCoupon(coupon)
+        unusedCouponBook.removeUsedCoupon(coupon)
     }
 
     fun showMyCouponBook(): List<Coupon> {
-        return unUsedCouponBook.showUnUsedCoupons()
+        return unusedCouponBook.showUnusedCoupons()
     }
 
     fun receiveCoupon(coupon: Coupon) {
-        unUsedCouponBook.addUnUsedCoupon(coupon)
+        unusedCouponBook.addUnusedCoupon(coupon)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -34,6 +33,6 @@ class Member(
     }
 
     override fun toString(): String {
-        return "Member(id=$id, name='$name', unUsedCouponBook=$unUsedCouponBook)"
+        return "Member(id=$id, name='$name', unUsedCouponBook=$unusedCouponBook)"
     }
 }

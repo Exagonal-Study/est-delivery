@@ -5,7 +5,7 @@ import com.example.estdelivery.domain.fixture.게시할_쿠폰
 import com.example.estdelivery.domain.fixture.나눠주지_않은_쿠폰
 import com.example.estdelivery.domain.fixture.나눠줄_쿠폰
 import com.example.estdelivery.domain.member.Member
-import com.example.estdelivery.domain.member.UnUsedCouponBook
+import com.example.estdelivery.domain.member.UnusedCouponBook
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -16,9 +16,9 @@ class ShopTest : FreeSpec({
 
     beforeTest {
         val 단골_리스트 = RoyalCustomers()
-        val 홍길동 = Member(1, "홍길동", UnUsedCouponBook())
-        val 김철수 = Member(2, "김철수", UnUsedCouponBook())
-        val 이영희 = Member(3, "이영희", UnUsedCouponBook())
+        val 홍길동 = Member(1, "홍길동", UnusedCouponBook())
+        val 김철수 = Member(2, "김철수", UnusedCouponBook())
+        val 이영희 = Member(3, "이영희", UnusedCouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수, 이영희)
         매장 = Shop(PublishedCouponBook(), HandOutCouponBook(), UsedCouponBook(), 단골_리스트)
     }
@@ -54,7 +54,7 @@ class ShopTest : FreeSpec({
     }
 
     "단골 회원을 추가할 수 있다." {
-        val 새로운_철수 = Member(14, "새로운 철수", UnUsedCouponBook())
+        val 새로운_철수 = Member(14, "새로운 철수", UnusedCouponBook())
         매장.addRoyalCustomers(새로운_철수)
         매장.showRoyalCustomers().contains(새로운_철수) shouldBe true
     }

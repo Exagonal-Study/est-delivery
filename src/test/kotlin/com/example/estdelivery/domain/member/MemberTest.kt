@@ -8,7 +8,7 @@ class MemberTest : FreeSpec({
     lateinit var member: Member
 
     beforeTest {
-        member = Member(1, "홍길동", UnUsedCouponBook())
+        member = Member(1, "홍길동", UnusedCouponBook())
     }
 
     "쿠폰을 추가할 수 있다." {
