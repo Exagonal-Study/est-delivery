@@ -48,7 +48,7 @@ classDiagram
     Shop *-- HandOutCouponBook
     Shop *-- RoyalCustomers
     RoyalCustomers *-- Member
-    Member *-- UnUsedCouponBook
+    Member *-- UnusedCouponBook
     CouponBook *-- Coupon
     FixDiscountCoupon --|> Coupon
     RateDiscountCoupon --|> Coupon
