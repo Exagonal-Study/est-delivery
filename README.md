@@ -195,7 +195,6 @@ erDiagram
 		string description
 		string type
 		int amount
-		string type
 	}	
 
 	members_coupon_book {
