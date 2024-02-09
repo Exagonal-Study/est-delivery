@@ -1,5 +1,7 @@
 package com.example.estdelivery.domain.coupon
 
+import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
+import com.example.estdelivery.domain.fixture.나눠준_비율_할인_쿠폰
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -7,8 +9,6 @@ import io.kotest.matchers.shouldBe
 class CouponBookTest : FreeSpec({
 
     lateinit var couponBook: CouponBook
-    val 나눠준_비율_할인_쿠폰 = Coupon.RateDiscountCoupon(1, 10, "10% 할인 쿠폰", "10% 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
-    val 게시된_고정_할인_쿠폰 = Coupon.FixDiscountCoupon(2, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED)
 
     beforeTest {
         couponBook = CouponBook()

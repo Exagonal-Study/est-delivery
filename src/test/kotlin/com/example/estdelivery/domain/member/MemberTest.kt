@@ -1,28 +1,24 @@
 package com.example.estdelivery.domain.member
 
-import com.example.estdelivery.domain.coupon.Coupon
-import com.example.estdelivery.domain.coupon.CouponBook
-import com.example.estdelivery.domain.coupon.CouponType
+import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
 class MemberTest : FreeSpec({
     lateinit var member: Member
-    val coupon = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
 
     beforeTest {
         member = Member(1, "홍길동", UnUsedCouponBook())
     }
 
     "쿠폰을 추가할 수 있다." {
-        member.receiveCoupon(coupon)
-        member.showMyCouponBook().contains(coupon) shouldBe true
+        member.receiveCoupon(게시된_고정_할인_쿠폰)
+        member.showMyCouponBook().contains(게시된_고정_할인_쿠폰) shouldBe true
     }
 
     "쿠폰을 사용할 수 있다." {
-        member.receiveCoupon(coupon)
-        member.useCoupon(coupon)
-        member.showMyCouponBook().contains(coupon) shouldBe false
+        member.receiveCoupon(게시된_고정_할인_쿠폰)
+        member.useCoupon(게시된_고정_할인_쿠폰)
+        member.showMyCouponBook().contains(게시된_고정_할인_쿠폰) shouldBe false
     }
 })

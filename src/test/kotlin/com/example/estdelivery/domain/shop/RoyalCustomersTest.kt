@@ -1,13 +1,10 @@
 package com.example.estdelivery.domain.shop
 
-import com.example.estdelivery.domain.coupon.Coupon
-import com.example.estdelivery.domain.coupon.CouponBook
-import com.example.estdelivery.domain.coupon.CouponType
+import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
 import com.example.estdelivery.domain.member.Member
 import com.example.estdelivery.domain.member.UnUsedCouponBook
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
 class RoyalCustomersTest : FreeSpec({
@@ -19,14 +16,13 @@ class RoyalCustomersTest : FreeSpec({
         val 김철수 = Member(2, "김철수", UnUsedCouponBook())
         val 이영희 = Member(3, "이영희", UnUsedCouponBook())
         단골_리스트.addRoyalCustomers(홍길동, 김철수, 이영희)
-        val coupon = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
 
         // when
-        단골_리스트.handOutCoupon(coupon)
+        단골_리스트.handOutCoupon(게시된_고정_할인_쿠폰)
 
         // then
         for (royalMember in 단골_리스트.showRoyalCustomers()) {
-            royalMember.showMyCouponBook().contains(coupon) shouldBe true
+            royalMember.showMyCouponBook().contains(게시된_고정_할인_쿠폰) shouldBe true
         }
     }
 

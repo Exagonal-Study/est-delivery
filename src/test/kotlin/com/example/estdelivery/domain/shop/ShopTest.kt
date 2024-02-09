@@ -1,8 +1,9 @@
 package com.example.estdelivery.domain.shop
 
-import com.example.estdelivery.domain.coupon.Coupon
-import com.example.estdelivery.domain.coupon.CouponBook
-import com.example.estdelivery.domain.coupon.CouponType
+import com.example.estdelivery.domain.fixture.게시되지_않은_쿠폰
+import com.example.estdelivery.domain.fixture.게시할_쿠폰
+import com.example.estdelivery.domain.fixture.나눠주지_않은_쿠폰
+import com.example.estdelivery.domain.fixture.나눠줄_쿠폰
 import com.example.estdelivery.domain.member.Member
 import com.example.estdelivery.domain.member.UnUsedCouponBook
 import io.kotest.assertions.throwables.shouldThrow
@@ -12,7 +13,6 @@ import io.kotest.matchers.shouldBe
 class ShopTest : FreeSpec({
 
     lateinit var 매장: Shop
-    val 게시할_쿠폰 = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED)
 
     beforeTest {
         val 단골_리스트 = RoyalCustomers()
@@ -35,26 +35,21 @@ class ShopTest : FreeSpec({
     }
 
     "게시하지 않는 쿠폰인 경우 사용 할 수 없다." {
-        val 게시되지_않은_쿠폰 = Coupon.FixDiscountCoupon(2, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED)
         shouldThrow<IllegalArgumentException> { 매장.useCoupon(게시되지_않은_쿠폰) }
     }
 
     "나눠준 쿠폰이 아닌 경우 사용 할 수 없다." {
-        val 나눠주지_않은_쿠폰 = Coupon.FixDiscountCoupon(2, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
         shouldThrow<IllegalArgumentException> { 매장.useCoupon(나눠주지_않은_쿠폰) }
     }
 
     "모든 회원에게 쿠폰을 나눠줄 수 있다." {
-        // given
-        val 나눠줄_쿠폰_발급 = Coupon.FixDiscountCoupon(1, 1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
-
         // when
-        매장.handOutCouponToRoyalCustomers(나눠줄_쿠폰_발급)
+        매장.handOutCouponToRoyalCustomers(나눠줄_쿠폰)
 
         // then
-        매장.showHandOutCoupon().contains(나눠줄_쿠폰_발급) shouldBe true
+        매장.showHandOutCoupon().contains(나눠줄_쿠폰) shouldBe true
         for (royalMember in 매장.showRoyalCustomers()) {
-            royalMember.showMyCouponBook().contains(나눠줄_쿠폰_발급) shouldBe true
+            royalMember.showMyCouponBook().contains(나눠줄_쿠폰) shouldBe true
         }
     }
 
