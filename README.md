@@ -43,20 +43,52 @@
 title: 이달의 민족
 ---
 classDiagram
-    Shop *-- CouponBook
+    Shop *-- UnusedCouponBook
+    Shop *-- PublishedCouponBook
+    Shop *-- HandOutCouponBook
     Shop *-- RoyalCustomers
     RoyalCustomers *-- Member
-    Member *-- CouponBook
+    Member *-- UnUsedCouponBook
     CouponBook *-- Coupon
     FixDiscountCoupon --|> Coupon
     RateDiscountCoupon --|> Coupon
     ShopOwner *-- Shop
+    UnusedCouponBook *-- CouponBook
+    PublishedCouponBook *-- CouponBook
+    HandOutCouponBook *-- CouponBook
+    UsedCouponBook *-- CouponBook
 
     class CouponBook{
 			-List~Coupon~ coupons
 			+existCoupon(Coupon coupon) void
 			+deleteCoupon(Coupon coupon) void
 			+addCoupon(Coupon coupon) void
+    }
+    
+    class UsedCouponBook{
+        -CouponBook couponBook
+        +addUsedCoupon(Coupon coupon) void
+        +showUsedCoupons() List~Coupon~
+    }
+
+    class UnusedCouponBook{
+        -CouponBook couponBook
+        +addUnusedCoupon(Coupon coupon) void
+        +removeUsedCoupon(Coupon coupon) void
+        +showUnusedCoupons() List~Coupon~
+    }
+    
+    class PublishedCouponBook{
+        -CouponBook couponBook
+        +addPublishedCoupon(Coupon coupon) void
+        +removePublishedCoupon(Coupon coupon) void
+        +showPublishedCoupons() List~Coupon~
+    }
+    
+    class HandOutCouponBook{
+        -CouponBook couponBook
+        +addHandOutCoupon(Coupon coupon) void
+        +showHandOutCoupons() List~Coupon~
     }
 
     class Coupon{
