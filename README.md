@@ -183,7 +183,12 @@ erDiagram
 		long coupon_id
 	}
 
-	coupon {
+    handout_coupon_book {
+    long shop_id
+    long coupon_id
+    }
+
+    coupon {
 		long id pk
 		long shop_id
 		string name
@@ -203,6 +208,8 @@ erDiagram
 	royal_member }o--|| shop : manage
 	members_coupon_book ||--o{ coupon : contains
 	members_coupon_book ||--o{ member : have
+    handout_coupon_book ||--o{ shop : have
+    handout_coupon_book ||--o{ coupon : contains
 	published_coupon_book ||--o{ shop : have
 	published_coupon_book ||--o{ coupon : contains
 ```
