@@ -11,7 +11,6 @@ import com.example.estdelivery.domain.shop.Shop
 
 class IssuePublishedCouponService(
     private val loadMemberStatePort: LoadMemberStatePort,
-    private val loadPublishedCouponBookStatePort: LoadPublishedCouponBookStatePort,
     private val loadCouponStatePort: LoadCouponStatePort,
     private val loadShopStatePort: LoadShopStatePort,
     private val updateMemberStatePort: UpdateMemberStatePort,
@@ -28,18 +27,17 @@ class IssuePublishedCouponService(
      */
     override fun issuePublishedCoupon(issuePublishedCouponCommand: IssuePublishedCouponCommand) {
         val member = getMember(issuePublishedCouponCommand)
-        val publishedCouponBook = getPublishedCouponBook(issuePublishedCouponCommand)
+        val shop = getShop(issuePublishedCouponCommand)
         val coupon: Coupon = getCoupon(issuePublishedCouponCommand)
-        member.receiveCoupon(publishedCouponBook.issueCoupon(coupon))
+        member.receiveCoupon(shop.issueCoupon(coupon))
         updateMember(member)
-        addRoyalCustomerIfNotExist(issuePublishedCouponCommand, member)
+        addRoyalCustomers(shop, member)
     }
 
-    private fun addRoyalCustomerIfNotExist(
-        issuePublishedCouponCommand: IssuePublishedCouponCommand,
+    private fun addRoyalCustomers(
+        shop: Shop,
         member: Member
     ) {
-        val shop = getShop(issuePublishedCouponCommand)
         if (!shop.showRoyalCustomers().contains(member)) {
             shop.addRoyalCustomers(member)
             updateShop(shop)
@@ -59,10 +57,6 @@ class IssuePublishedCouponService(
 
     private fun getCoupon(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
         loadCouponStatePort.findByCouponId(issuePublishedCouponCommand.couponId).toCoupon()
-
-    private fun getPublishedCouponBook(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
-        loadPublishedCouponBookStatePort.findById(issuePublishedCouponCommand.shopId)
-            .toPublishedCouponBook()
 
     private fun getMember(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
         loadMemberStatePort.findById(issuePublishedCouponCommand.memberId).toMember()

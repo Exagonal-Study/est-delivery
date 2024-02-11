@@ -44,6 +44,10 @@ class Shop(
     fun showUsedCoupons(): List<Coupon> {
         return usedCouponBook.showUsedCoupons()
     }
+
+    fun issueCoupon(coupon: Coupon): Coupon {
+        return publishedCoupons.issueCoupon(coupon)
+    }
 }
 
 private operator fun PublishedCouponBook.plus(coupon: HandOutCouponBook): List<Coupon> {

@@ -26,7 +26,6 @@ class IssuePublishedCouponServiceTest : FreeSpec({
 
     val loadCouponStatePort = mockk<LoadCouponStatePort>()
     val loadShopStatePort = mockk<LoadShopStatePort>()
-    val loadPublishedCouponBookStatePort = mockk<LoadPublishedCouponBookStatePort>()
     val loadMemberStatePort = mockk<LoadMemberStatePort>()
     val updateShopStatePort = mockk<UpdateShopStatePort>()
     val updateMemberStatePort = mockk<UpdateMemberStatePort>()
@@ -36,7 +35,6 @@ class IssuePublishedCouponServiceTest : FreeSpec({
     beforeTest {
         issuePublishedCouponUseCase = IssuePublishedCouponService(
             loadMemberStatePort,
-            loadPublishedCouponBookStatePort,
             loadCouponStatePort,
             loadShopStatePort,
             updateMemberStatePort,
@@ -61,11 +59,9 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val 회원_상태 = MemberState(회원_이름, listOf(), memberId)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadPublishedCouponBookStatePort.findById(shopId) } returns
-                PublishedCouponBookState(listOf(할인쿠폰_10퍼센트_상태))
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
         every { updateMemberStatePort.updateMember(any()) } returns Unit
-        every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(), listOf(), listOf(), listOf())
+        every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
         every { updateShopStatePort.update(any()) } returns Unit
 
         // when
@@ -79,7 +75,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
             updateShopStatePort.update(
                 ShopState(
                     프리퍼,
-                    listOf(),
+                    listOf(할인쿠폰_10퍼센트),
                     listOf(),
                     listOf(),
                     listOf(변경된_회원상태.toMember())
@@ -100,16 +96,35 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val 회원_상태 = MemberState(회원_이름, listOf(할인쿠폰_10퍼센트), memberId)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadPublishedCouponBookStatePort.findById(shopId) } returns
-                PublishedCouponBookState(listOf(할인쿠폰_10퍼센트_상태))
+        every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
+        every { updateMemberStatePort.updateMember(any()) } returns Unit
+        every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
+        every { updateShopStatePort.update(any()) } returns Unit
+
+        // when & then
+        shouldThrow<IllegalArgumentException> {
+            issuePublishedCouponUseCase.issuePublishedCoupon(issuePublishedCouponCommand)
+        }.message shouldBe "이미 존재하는 쿠폰입니다."
+    }
+
+    "게시되지 않은 쿠폰을 받을 수 없다." {
+        // given
+        val memberId = 1L
+        val shopId = 1L
+        val couponId = 1L
+        val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
+        val 할인쿠폰_10퍼센트_상태 = CouponState(쿠폰_이름, 쿠폰_설명, RATE, PUBLISHED, 10, couponId)
+        val 회원_상태 = MemberState(회원_이름, listOf(), memberId)
+
+        every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
         every { updateMemberStatePort.updateMember(any()) } returns Unit
         every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(), listOf(), listOf(), listOf())
         every { updateShopStatePort.update(any()) } returns Unit
 
-        // when
+        // when & then
         shouldThrow<IllegalArgumentException> {
             issuePublishedCouponUseCase.issuePublishedCoupon(issuePublishedCouponCommand)
-        }.message shouldBe "이미 존재하는 쿠폰입니다."
+        }.message shouldBe "게시된 쿠폰이 아닙니다."
     }
 })
