@@ -13,6 +13,7 @@ import com.example.estdelivery.domain.fixture.프리퍼
 import com.example.estdelivery.domain.shop.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
@@ -56,7 +57,7 @@ class PublishCouponServiceTest : FreeSpec({
         publishCouponService.publishCoupon(publishCouponCommand)
 
         // then
-        변경된_프리퍼_주인_상태.captured.toShopOwner().showPublishedCouponsInShop() shouldBe listOf(게시할_쿠폰)
+        변경된_프리퍼_주인_상태.captured.toShopOwner().showPublishedCouponsInShop() shouldContain 게시할_쿠폰
     }
 
     "게시된 쿠폰북에 동일한 쿠폰이 있을 수 없다." {

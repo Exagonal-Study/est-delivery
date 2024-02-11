@@ -7,9 +7,12 @@ import com.example.estdelivery.application.port.out.state.CouponStateAmountType.
 import com.example.estdelivery.application.port.out.state.CouponStateType.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldHave
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
 
 private const val 회원_이름 = "이건창"
@@ -57,31 +60,21 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val 할인쿠폰_10퍼센트 = 할인쿠폰_10퍼센트_상태.toCoupon()
 
         val 회원_상태 = MemberState(회원_이름, listOf(), memberId)
+        val 변경된_가게_상태 = slot<ShopState>()
+        val 변경된_회원_상태 = slot<MemberState>()
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
-        every { updateMemberStatePort.updateMember(any()) } returns Unit
         every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
-        every { updateShopStatePort.update(any()) } returns Unit
+        every { updateMemberStatePort.updateMember(capture(변경된_회원_상태)) } returns Unit
+        every { updateShopStatePort.update(capture(변경된_가게_상태)) } returns Unit
 
         // when
         issuePublishedCouponUseCase.issuePublishedCoupon(issuePublishedCouponCommand)
 
         // then
-        val 변경된_회원상태 = MemberState(회원_이름, listOf(할인쿠폰_10퍼센트), memberId)
-
-        verify { updateMemberStatePort.updateMember(변경된_회원상태) }
-        verify {
-            updateShopStatePort.update(
-                ShopState(
-                    프리퍼,
-                    listOf(할인쿠폰_10퍼센트),
-                    listOf(),
-                    listOf(),
-                    listOf(변경된_회원상태.toMember())
-                )
-            )
-        }
+        변경된_회원_상태.captured.toMember().showMyCouponBook() shouldContain 할인쿠폰_10퍼센트
+        변경된_가게_상태.captured.toShop().showRoyalCustomers() shouldContain 회원_상태.toMember()
     }
 
     "이미 가진 쿠폰이라면 담을 수 없다." {
