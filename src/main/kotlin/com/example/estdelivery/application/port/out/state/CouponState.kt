@@ -18,8 +18,8 @@ data class CouponState(
 ) {
     fun toCoupon(): Coupon {
         return when (amountType) {
-            RATE -> Coupon.RateDiscountCoupon(id!!, amount, name, description, getCouponType(type))
-            FIX -> Coupon.FixDiscountCoupon(id!!, amount, name, description, getCouponType(type))
+            RATE -> Coupon.RateDiscountCoupon(amount, name, description, getCouponType(type), id)
+            FIX -> Coupon.FixDiscountCoupon(amount, name, description, getCouponType(type), id)
         }
     }
 

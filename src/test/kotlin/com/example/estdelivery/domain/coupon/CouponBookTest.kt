@@ -34,7 +34,7 @@ class CouponBookTest : FreeSpec({
     }
 
     "존재하지 않는 쿠폰을 삭제할 수 없다." {
-        val 존재하지_않는_쿠폰 = Coupon.RateDiscountCoupon(3, 10, "10% 할인 쿠폰", "10% 할인 쿠폰 설명", CouponType.IS_HAND_OUT)
+        val 존재하지_않는_쿠폰 = Coupon.RateDiscountCoupon(10, "10% 할인 쿠폰", "10% 할인 쿠폰 설명", CouponType.IS_HAND_OUT, 100L)
         shouldThrow<IllegalArgumentException> {
             couponBook.deleteCoupon(존재하지_않는_쿠폰)
         }.message shouldBe "존재하지 않는 쿠폰입니다."
