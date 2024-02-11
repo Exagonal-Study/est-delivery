@@ -17,4 +17,12 @@ class PublishedCouponBook(
     fun showPublishedCoupons(): List<Coupon> {
         return publishedCoupons.showCoupons()
     }
+
+    fun issueCoupon(coupon: Coupon): Coupon {
+        if (!publishedCoupons.showCoupons().contains(coupon)) {
+            throw IllegalArgumentException("게시된 쿠폰이 아닙니다.")
+        }
+
+        return publishedCoupons.showCoupons().find { it == coupon }!!
+    }
 }
