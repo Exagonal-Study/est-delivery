@@ -7,8 +7,11 @@ import com.example.estdelivery.application.port.out.LoadShopStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.application.port.out.state.ShopState
+import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.fixture.게시할_쿠폰
 import com.example.estdelivery.domain.fixture.프리퍼
+import com.example.estdelivery.domain.shop.*
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -16,7 +19,6 @@ import io.mockk.mockk
 import io.mockk.slot
 
 class PublishCouponServiceTest : FreeSpec({
-
     val loadShopOwnerPort = mockk<LoadShopOwnerStatePort>()
     val createCouponStatePort = mockk<CreateCouponStatePort>()
     val loadShopStatePort = mockk<LoadShopStatePort>()
@@ -42,11 +44,10 @@ class PublishCouponServiceTest : FreeSpec({
             shopId,
             게시할_쿠폰
         )
-
-        // when
         val 프리퍼_주인_상태 = ShopOwnerState(프리퍼, shopOwnerId)
         val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
 
+        // when
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
         every { loadShopStatePort.findById(shopId) } returns ShopState.from(프리퍼)
         every { createCouponStatePort.create(게시할_쿠폰) } returns Unit
@@ -56,5 +57,36 @@ class PublishCouponServiceTest : FreeSpec({
 
         // then
         변경된_프리퍼_주인_상태.captured.toShopOwner().showPublishedCouponsInShop() shouldBe listOf(게시할_쿠폰)
+    }
+
+    "게시된 쿠폰북에 동일한 쿠폰이 있을 수 없다." {
+        // given
+        val shopOwnerId = 1L
+        val shopId = 프리퍼.id!!
+        val publishCouponCommand = PublishCouponCommand(
+            shopOwnerId,
+            shopId,
+            게시할_쿠폰
+        )
+        val 이미_쿠폰을_게시한_프리퍼 = Shop(
+            PublishedCouponBook(CouponBook(listOf(게시할_쿠폰))),
+            HandOutCouponBook(CouponBook(listOf())),
+            UsedCouponBook(CouponBook(listOf())),
+            RoyalCustomers(listOf()),
+            "프리퍼",
+            shopId
+        )
+        val 프리퍼_주인_상태 = ShopOwnerState(이미_쿠폰을_게시한_프리퍼, shopOwnerId)
+
+        // when
+
+        every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
+        every { loadShopStatePort.findById(shopId) } returns ShopState.from(이미_쿠폰을_게시한_프리퍼)
+        every { createCouponStatePort.create(게시할_쿠폰) } returns Unit
+
+        // then
+        shouldThrow<IllegalArgumentException> {
+            publishCouponService.publishCoupon(publishCouponCommand)
+        }.message shouldBe "이미 게시한 쿠폰입니다."
     }
 })
