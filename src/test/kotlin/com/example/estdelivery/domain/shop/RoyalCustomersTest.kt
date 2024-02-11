@@ -34,5 +34,6 @@ class RoyalCustomersTest : FreeSpec({
 
         // when
         shouldThrow<IllegalArgumentException> { 단골_리스트.addRoyalCustomers(홍길동) }
+            .message shouldBe "이미 등록된 회원입니다."
     }
 })

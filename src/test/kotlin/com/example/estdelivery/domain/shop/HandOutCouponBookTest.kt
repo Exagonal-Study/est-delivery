@@ -28,6 +28,7 @@ class HandOutCouponBookTest : FreeSpec({
 
         // then
         shouldThrow<IllegalArgumentException> { handOutCouponBook.addHandOutCoupon(나눠줄_쿠폰) }
+            .message shouldBe "이미 나눠준 쿠폰입니다."
     }
 
     "나눠줄 수 없는 쿠폰은 담을 수 없다." {
@@ -36,5 +37,6 @@ class HandOutCouponBookTest : FreeSpec({
 
         // when & then
         shouldThrow<IllegalArgumentException> { handOutCouponBook.addHandOutCoupon(게시할_쿠폰) }
+            .message shouldBe "나눠줄 수 없는 쿠폰입니다."
     }
 })

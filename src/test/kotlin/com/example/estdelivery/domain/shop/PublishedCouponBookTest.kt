@@ -27,6 +27,7 @@ class PublishedCouponBookTest : FreeSpec({
 
         // then
         shouldThrow<IllegalArgumentException> { publishedCouponBook.publishCoupon(게시할_쿠폰) }
+            .message shouldBe "이미 게시한 쿠폰입니다."
     }
 
     "게시할 수 없는 쿠폰은 추가할 수 없다." {
@@ -35,5 +36,6 @@ class PublishedCouponBookTest : FreeSpec({
 
         // when & then
         shouldThrow<IllegalArgumentException> { publishedCouponBook.publishCoupon(나눠줄_쿠폰) }
+            .message shouldBe "게시할 수 없는 쿠폰입니다."
     }
 })

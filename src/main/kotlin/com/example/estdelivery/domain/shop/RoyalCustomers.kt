@@ -12,9 +12,7 @@ class RoyalCustomers(
 
     fun addRoyalCustomers(vararg members: Member) {
         for (member in members) {
-            if (customers.contains(member)) {
-                throw IllegalArgumentException("이미 등록된 회원입니다.")
-            }
+            require(customers.contains(member).not()) { "이미 등록된 회원입니다." }
         }
         customers = customers + members
     }

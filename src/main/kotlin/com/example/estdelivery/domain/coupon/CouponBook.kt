@@ -8,16 +8,12 @@ class CouponBook(
     }
 
     fun deleteCoupon(coupon: Coupon) {
-        if (!coupons.contains(coupon)) {
-            throw IllegalArgumentException("존재하지 않는 쿠폰입니다.")
-        }
+        require(coupons.contains(coupon)) { "존재하지 않는 쿠폰입니다." }
         coupons = coupons - coupon
     }
 
     fun addCoupon(coupon: Coupon) {
-        if (coupons.contains(coupon)) {
-            throw IllegalArgumentException("이미 존재하는 쿠폰입니다.")
-        }
+        require(coupons.contains(coupon).not()) { "이미 존재하는 쿠폰입니다." }
         coupons = coupons + coupon
     }
 }

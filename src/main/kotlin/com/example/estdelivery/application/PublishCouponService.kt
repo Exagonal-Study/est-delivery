@@ -26,9 +26,7 @@ class PublishCouponService(
         val shopOwner = loadShopOwnerPort.findById(publishCouponCommand.shopOwnerId).toShopOwner()
         val shop = loadShopStatePort.findById(publishCouponCommand.shopId).toShop()
 
-        if (shopOwner.isOwn(shop).not()) {
-            throw IllegalArgumentException("가게 주인이 아닙니다.")
-        }
+        require(shopOwner.isOwn(shop)) { "가게 주인이 아닙니다." }
 
         shopOwner.publishCouponInShop(publishCouponCommand.coupon)
 
