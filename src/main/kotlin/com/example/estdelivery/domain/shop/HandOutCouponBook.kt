@@ -15,6 +15,10 @@ class HandOutCouponBook(
             throw IllegalArgumentException("이미 나눠준 쿠폰입니다.")
         }
 
+        if (coupon.isHandOut().not()) {
+            throw IllegalArgumentException("나눠줄 수 없는 쿠폰입니다.")
+        }
+
         handOutCoupons.addCoupon(coupon)
     }
 }

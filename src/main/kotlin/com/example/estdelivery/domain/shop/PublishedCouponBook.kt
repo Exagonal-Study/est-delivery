@@ -11,6 +11,10 @@ class PublishedCouponBook(
             throw IllegalArgumentException("이미 게시한 쿠폰입니다.")
         }
 
+        if (coupon.isPublished().not()) {
+            throw IllegalArgumentException("게시할 수 없는 쿠폰입니다.")
+        }
+
         publishedCoupons.addCoupon(coupon)
     }
 
