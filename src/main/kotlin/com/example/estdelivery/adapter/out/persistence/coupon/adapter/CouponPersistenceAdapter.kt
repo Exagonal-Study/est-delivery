@@ -8,13 +8,22 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-@Transactional
 class CouponPersistenceAdapter(
     private val couponJpaRepository: CouponJpaRepository
 ) : CouponPersistencePort {
-    override fun generateCoupon(coupon: Coupon): Coupon {
-        val savedCoupon = couponJpaRepository.save(CouponMapper.toEntity(coupon))
-        return CouponMapper.toDomain(savedCoupon)
+    @Transactional
+    override fun saveCoupon(coupon: Coupon): Coupon {
+        val couponEntity = CouponMapper.toEntity(coupon)
+        val savedEntity = couponJpaRepository.save(couponEntity)
+        return CouponMapper.toDomain(savedEntity)
+    }
+
+    @Transactional
+    override fun updateCouponQuantity(coupon: Coupon) {
+        val couponJpaEntity = couponJpaRepository.findById(coupon.id!!)
+            .orElseThrow { throw RuntimeException("쿠폰이 존재하지 않습니다.") }
+
+        couponJpaEntity.updateCouponQuantity(coupon.getCouponQuantity())
     }
 
     @Transactional(readOnly = true)
