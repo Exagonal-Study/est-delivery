@@ -25,9 +25,7 @@ class Shop(
     }
 
     fun handOutCouponToRoyalCustomers(coupon: Coupon) {
-        if (publishedCoupons.showPublishedCoupons().contains(coupon).not()){
-            handOutCouponBook.addHandOutCoupon(coupon)
-        }
+        handOutCouponBook.addHandOutCoupon(coupon)
         royalCustomers.handOutCoupon(coupon)
     }
 

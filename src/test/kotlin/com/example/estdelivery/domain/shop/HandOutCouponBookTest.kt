@@ -19,16 +19,15 @@ class HandOutCouponBookTest : FreeSpec({
         handOutCouponBook.showHandOutCoupon().contains(나눠줄_쿠폰) shouldBe true
     }
 
-    "이미 추가된 쿠폰은 담을 수 없다." {
+    "이미 추가된 쿠폰은 담기지 않는다." {
         // given
         val handOutCouponBook = HandOutCouponBook()
 
         // when
         handOutCouponBook.addHandOutCoupon(나눠줄_쿠폰)
-
+        handOutCouponBook.addHandOutCoupon(나눠줄_쿠폰)
         // then
-        shouldThrow<IllegalArgumentException> { handOutCouponBook.addHandOutCoupon(나눠줄_쿠폰) }
-            .message shouldBe "이미 나눠준 쿠폰입니다."
+        handOutCouponBook.showHandOutCoupon().size shouldBe 1
     }
 
     "나눠줄 수 없는 쿠폰은 담을 수 없다." {
