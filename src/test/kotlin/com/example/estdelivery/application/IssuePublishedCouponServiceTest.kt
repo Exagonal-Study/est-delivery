@@ -55,7 +55,11 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val 회원_상태 = MemberState("name", listOf(), memberId)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadPublishedCouponBookStatePort.findById(shopId) } returns PublishedCouponBookState(listOf(할인쿠폰_10퍼센트_상태))
+        every { loadPublishedCouponBookStatePort.findById(shopId) } returns PublishedCouponBookState(
+            listOf(
+                할인쿠폰_10퍼센트_상태
+            )
+        )
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
         every { updateMemberStatePort.updateMember(any()) } returns Unit
         every { loadShopStatePort.findById(shopId) } returns ShopState("프리퍼", listOf(), listOf(), listOf(), listOf())
@@ -68,6 +72,16 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val 변경된_회원상태 = MemberState("name", listOf(할인쿠폰_10퍼센트), memberId)
 
         verify { updateMemberStatePort.updateMember(변경된_회원상태) }
-        verify { updateShopStatePort.update(ShopState("프리퍼", listOf(), listOf(), listOf(), listOf(변경된_회원상태.toMember()))) }
+        verify {
+            updateShopStatePort.update(
+                ShopState(
+                    "프리퍼",
+                    listOf(),
+                    listOf(),
+                    listOf(),
+                    listOf(변경된_회원상태.toMember())
+                )
+            )
+        }
     }
 })
