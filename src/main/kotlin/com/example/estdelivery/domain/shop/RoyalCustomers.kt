@@ -7,7 +7,9 @@ class RoyalCustomers(
     private var customers: List<Member> = listOf()
 ) {
     fun handOutCoupon(coupon: Coupon) {
-        customers.forEach { it.receiveCoupon(coupon) }
+        customers.filter {
+            it.showMyCouponBook().contains(coupon).not()
+        }.forEach { it.receiveCoupon(coupon) }
     }
 
     fun addRoyalCustomers(vararg members: Member) {
