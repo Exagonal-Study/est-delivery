@@ -29,27 +29,27 @@ class Shop(
         royalCustomers.handOutCoupon(coupon)
     }
 
-    fun showPublishedCoupons(): List<Coupon> {
-        return publishedCoupons.showPublishedCoupons()
+    fun showPublishedCoupons() = publishedCoupons.showPublishedCoupons()
+
+    fun showRoyalCustomers() = royalCustomers.showRoyalCustomers()
+
+    fun showHandOutCoupon() = handOutCouponBook.showHandOutCoupon()
+
+    fun showUsedCoupons() = usedCouponBook.showUsedCoupons()
+
+    fun issueCoupon(coupon: Coupon) = publishedCoupons.issueCoupon(coupon)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Shop
+
+        return id == other.id
     }
 
-    fun showRoyalCustomers(): List<Member> {
-        return royalCustomers.showRoyalCustomers()
-    }
-
-    fun showHandOutCoupon(): List<Coupon> {
-        return handOutCouponBook.showHandOutCoupon()
-    }
-
-    fun showUsedCoupons(): List<Coupon> {
-        return usedCouponBook.showUsedCoupons()
-    }
-
-    fun issueCoupon(coupon: Coupon): Coupon {
-        return publishedCoupons.issueCoupon(coupon)
-    }
+    override fun hashCode() = id?.hashCode() ?: 0
 }
 
-private operator fun PublishedCouponBook.plus(coupon: HandOutCouponBook): List<Coupon> {
-    return showPublishedCoupons() + coupon.showHandOutCoupon()
-}
+private operator fun PublishedCouponBook.plus(coupon: HandOutCouponBook) =
+    showPublishedCoupons() + coupon.showHandOutCoupon()

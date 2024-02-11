@@ -4,7 +4,8 @@ import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.member.Member
 
 class ShopOwner(
-    private val shop: Shop
+    private val shop: Shop,
+    internal val id: Long? = null,
 ) {
     fun handOutCouponToRoyalCustomersInShop(coupon: Coupon) {
         shop.handOutCouponToRoyalCustomers(coupon)
@@ -18,15 +19,9 @@ class ShopOwner(
         shop.addRoyalCustomers(*members)
     }
 
-    fun showHandOutCouponInShop(): List<Coupon> {
-        return shop.showHandOutCoupon()
-    }
-
-    fun showPublishedCouponsInShop(): List<Coupon> {
-        return shop.showPublishedCoupons()
-    }
-
-    fun showRoyalCustomersInShop(): List<Member> {
-        return shop.showRoyalCustomers()
-    }
+    fun showHandOutCouponInShop() = shop.showHandOutCoupon()
+    fun showPublishedCouponsInShop() = shop.showPublishedCoupons()
+    fun showRoyalCustomersInShop() = shop.showRoyalCustomers()
+    fun showShop() = shop
+    fun isOwn(shop: Shop) = this.shop == shop
 }
