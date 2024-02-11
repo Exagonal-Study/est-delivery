@@ -4,7 +4,10 @@ import com.example.estdelivery.domain.coupon.Coupon
 
 interface CouponPersistencePort {
 
-    fun generateCoupon(coupon: Coupon): Coupon
+    fun saveCoupon(coupon: Coupon): Coupon
+
+    fun updateCouponQuantity(coupon: Coupon)
 
     fun findCouponById(couponId: Long): Coupon
+
 }

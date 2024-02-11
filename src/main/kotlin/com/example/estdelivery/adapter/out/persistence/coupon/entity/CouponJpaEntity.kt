@@ -37,4 +37,9 @@ class CouponJpaEntity(
     var couponEventType: CouponEventType = couponEventType
         protected set
 
+    fun updateCouponQuantity(quatity: Long) {
+        this.quantity = quatity
+    }
+
+
 }

@@ -14,9 +14,11 @@ object CouponMapper {
     )
 
     fun toDomain(couponJpaEntity: CouponJpaEntity): Coupon = Coupon(
+        id = couponJpaEntity.id,
         name = couponJpaEntity.name,
         quantity = CouponQuantity(couponJpaEntity.quantity),
         type = couponJpaEntity.type,
         couponEventType = couponJpaEntity.couponEventType,
+        createdDate = couponJpaEntity.createAt
     )
 }

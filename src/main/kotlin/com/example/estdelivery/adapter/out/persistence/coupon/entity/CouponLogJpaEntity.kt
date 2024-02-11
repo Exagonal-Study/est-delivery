@@ -7,6 +7,7 @@ import jakarta.persistence.*
 @Table(name = "coupon_log")
 class CouponLogJpaEntity(
     couponId: String,
+    quantity: Long,
     userId: Long,
     issued: Boolean = true
 ) : BaseJpaEntity() {
@@ -22,6 +23,10 @@ class CouponLogJpaEntity(
 
     @Column(name = "user_id", nullable = false)
     var userId: Long = userId
+        protected set
+
+    @Column(name = "quantity", nullable = false)
+    var quantity: Long = quantity
         protected set
 
     @Column(name = "issued", nullable = false)

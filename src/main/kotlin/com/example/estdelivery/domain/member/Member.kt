@@ -12,10 +12,6 @@ class Member(
         require(validateEmailCheck(email)) { throw IllegalArgumentException("이메일 형식이 올바르지 않습니다.") }
     }
 
-    fun changeEmail(nickname: String) {
-        this.email = nickname
-    }
-
     private fun validateEmailCheck(email: String): Boolean {
         val emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}\$".toRegex()
         return emailRegex.matches(email)
