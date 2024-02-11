@@ -1,7 +1,7 @@
 package com.example.estdelivery.application.port.out
 
-import com.example.estdelivery.domain.coupon.Coupon
+import com.example.estdelivery.application.port.out.state.CouponState
 
 interface CreateCouponStatePort {
-    fun create(coupon: Coupon)
+    fun create(couponState: CouponState): CouponState
 }

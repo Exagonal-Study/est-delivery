@@ -5,9 +5,11 @@ import com.example.estdelivery.application.port.out.CreateCouponStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
 import com.example.estdelivery.application.port.out.LoadShopStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
+import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.application.port.out.state.ShopState
 import com.example.estdelivery.domain.coupon.CouponBook
+import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
 import com.example.estdelivery.domain.fixture.게시할_쿠폰
 import com.example.estdelivery.domain.fixture.프리퍼
 import com.example.estdelivery.domain.shop.*
@@ -51,13 +53,13 @@ class PublishCouponServiceTest : FreeSpec({
         // when
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
         every { loadShopStatePort.findById(shopId) } returns ShopState.from(프리퍼)
-        every { createCouponStatePort.create(게시할_쿠폰) } returns Unit
+        every { createCouponStatePort.create(CouponState.from(게시할_쿠폰)) } returns CouponState.from(게시된_고정_할인_쿠폰)
         every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
 
         publishCouponService.publishCoupon(publishCouponCommand)
 
         // then
-        변경된_프리퍼_주인_상태.captured.toShopOwner().showPublishedCouponsInShop() shouldContain 게시할_쿠폰
+        변경된_프리퍼_주인_상태.captured.toShopOwner().showPublishedCouponsInShop() shouldContain 게시된_고정_할인_쿠폰
     }
 
     "게시된 쿠폰북에 동일한 쿠폰이 있을 수 없다." {
@@ -70,7 +72,7 @@ class PublishCouponServiceTest : FreeSpec({
             게시할_쿠폰
         )
         val 이미_쿠폰을_게시한_프리퍼 = Shop(
-            PublishedCouponBook(CouponBook(listOf(게시할_쿠폰))),
+            PublishedCouponBook(CouponBook(listOf(게시된_고정_할인_쿠폰))),
             HandOutCouponBook(CouponBook(listOf())),
             UsedCouponBook(CouponBook(listOf())),
             RoyalCustomers(listOf()),
@@ -83,7 +85,7 @@ class PublishCouponServiceTest : FreeSpec({
 
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
         every { loadShopStatePort.findById(shopId) } returns ShopState.from(이미_쿠폰을_게시한_프리퍼)
-        every { createCouponStatePort.create(게시할_쿠폰) } returns Unit
+        every { createCouponStatePort.create(CouponState.from(게시할_쿠폰)) } returns CouponState.from(게시된_고정_할인_쿠폰)
 
         // then
         shouldThrow<IllegalArgumentException> {

@@ -23,6 +23,40 @@ data class CouponState(
         }
     }
 
+    companion object {
+        fun from(coupon: Coupon): CouponState {
+            return CouponState(
+                coupon.name,
+                coupon.description,
+                getCouponStateAmountType(coupon),
+                getCouponStateType(coupon),
+                getCouponAmount(coupon),
+                coupon.id
+            )
+        }
+
+        private fun getCouponAmount(coupon: Coupon): Int {
+            return when (coupon) {
+                is Coupon.RateDiscountCoupon -> coupon.discountRate
+                is Coupon.FixDiscountCoupon -> coupon.discountAmount
+            }
+        }
+
+        private fun getCouponStateType(coupon: Coupon): CouponStateType {
+            return when (coupon.couponType) {
+                IS_PUBLISHED -> PUBLISHED
+                IS_HAND_OUT -> HANDOUT
+            }
+        }
+
+        private fun getCouponStateAmountType(coupon: Coupon): CouponStateAmountType {
+            return when (coupon) {
+                is Coupon.RateDiscountCoupon -> RATE
+                is Coupon.FixDiscountCoupon -> FIX
+            }
+        }
+    }
+
     private fun getCouponType(type: CouponStateType) = when (type) {
         PUBLISHED -> IS_PUBLISHED
         HANDOUT -> IS_HAND_OUT

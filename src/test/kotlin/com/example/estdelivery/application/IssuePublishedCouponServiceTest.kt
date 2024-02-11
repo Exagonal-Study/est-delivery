@@ -5,6 +5,9 @@ import com.example.estdelivery.application.port.out.*
 import com.example.estdelivery.application.port.out.state.*
 import com.example.estdelivery.application.port.out.state.CouponStateAmountType.*
 import com.example.estdelivery.application.port.out.state.CouponStateType.*
+import com.example.estdelivery.domain.fixture.가게_이름
+import com.example.estdelivery.domain.fixture.쿠폰_설명
+import com.example.estdelivery.domain.fixture.쿠폰_이름
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
@@ -16,9 +19,6 @@ import io.mockk.slot
 import io.mockk.verify
 
 private const val 회원_이름 = "이건창"
-private const val 쿠폰_이름 = "10% 할인 쿠폰"
-private const val 쿠폰_설명 = "게시된 10% 할인 쿠폰입니다."
-private const val 프리퍼 = "프리퍼"
 
 /**
  * - 회원은 가게에 게시된 쿠폰북에서 쿠폰을 꺼내 자신의 쿠폰 북에 담는다.
@@ -65,7 +65,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
-        every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
+        every { loadShopStatePort.findById(shopId) } returns ShopState(가게_이름, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
         every { updateMemberStatePort.updateMember(capture(변경된_회원_상태)) } returns Unit
         every { updateShopStatePort.update(capture(변경된_가게_상태)) } returns Unit
 
@@ -91,7 +91,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
         every { updateMemberStatePort.updateMember(any()) } returns Unit
-        every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
+        every { loadShopStatePort.findById(shopId) } returns ShopState(가게_이름, listOf(할인쿠폰_10퍼센트), listOf(), listOf(), listOf())
         every { updateShopStatePort.update(any()) } returns Unit
 
         // when & then
@@ -112,7 +112,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
         every { updateMemberStatePort.updateMember(any()) } returns Unit
-        every { loadShopStatePort.findById(shopId) } returns ShopState(프리퍼, listOf(), listOf(), listOf(), listOf())
+        every { loadShopStatePort.findById(shopId) } returns ShopState(가게_이름, listOf(), listOf(), listOf(), listOf())
         every { updateShopStatePort.update(any()) } returns Unit
 
         // when & then

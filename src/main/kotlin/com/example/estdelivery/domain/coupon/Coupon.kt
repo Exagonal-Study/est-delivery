@@ -3,8 +3,8 @@ package com.example.estdelivery.domain.coupon
 sealed class Coupon(
     open val name: String,
     open val description: String,
-    private val couponType: CouponType,
-    private val id: Long? = null
+    internal val couponType: CouponType,
+    internal val id: Long? = null
 ) {
     class RateDiscountCoupon(
         val discountRate: Int,
