@@ -8,3 +8,12 @@ content-type: application/json
   "couponEventType": "EVENT",
   "quantity": 100
 }
+
+### 쿠폰 사용
+@memberId = 1
+POST http://localhost:8080/api/v1/coupon/issued/{{memberId}}
+content-type: application/json
+
+{
+  "couponId" : 1
+}
