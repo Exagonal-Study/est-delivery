@@ -8,7 +8,9 @@ class Shop(
     private val publishedCoupons: PublishedCouponBook,
     private val handOutCouponBook: HandOutCouponBook,
     private val usedCouponBook: UsedCouponBook,
-    private val royalCustomers: RoyalCustomers
+    private val royalCustomers: RoyalCustomers,
+    private val name: String,
+    private val id: Long? = null,
 ) {
     fun publishCoupon(coupon: Coupon) {
         publishedCoupons.publishCoupon(coupon)
