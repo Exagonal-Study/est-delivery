@@ -8,7 +8,7 @@ private const val HANDOUT = "HANDOUT"
 private const val RATE = "RATE"
 private const val FIX = "FIX"
 
-class CouponState(
+data class CouponState(
     private val name: String,
     private val description: String,
     private val amountType: String,
