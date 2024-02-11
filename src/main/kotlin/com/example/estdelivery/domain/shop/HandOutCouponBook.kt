@@ -11,7 +11,7 @@ class HandOutCouponBook(
     }
 
     fun addHandOutCoupon(coupon: Coupon) {
-        require(coupon.isHandOut()) {"나눠줄 수 없는 쿠폰입니다."}
+        require(coupon.isHandOut()) { "나눠줄 수 없는 쿠폰입니다." }
         if (handOutCoupons.showCoupons().contains(coupon)) {
             return
         }

@@ -17,7 +17,7 @@ class PublishedCouponBook(
     }
 
     fun issueCoupon(coupon: Coupon): Coupon {
-        require(publishedCoupons.showCoupons().contains(coupon)) { "게시된 쿠폰이 아닙니다."}
+        require(publishedCoupons.showCoupons().contains(coupon)) { "게시된 쿠폰이 아닙니다." }
         return publishedCoupons.showCoupons().find { it == coupon }!!
     }
 }

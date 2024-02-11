@@ -2,20 +2,15 @@ package com.example.estdelivery.application
 
 import com.example.estdelivery.application.port.`in`.command.HandoutCouponCommand
 import com.example.estdelivery.application.port.out.*
-import com.example.estdelivery.application.port.out.state.*
-import com.example.estdelivery.domain.coupon.Coupon
-import com.example.estdelivery.domain.coupon.CouponBook
-import com.example.estdelivery.domain.coupon.CouponType
+import com.example.estdelivery.application.port.out.state.CouponState
+import com.example.estdelivery.application.port.out.state.ShopOwnerState
+import com.example.estdelivery.application.port.out.state.ShopState
 import com.example.estdelivery.domain.fixture.*
-import com.example.estdelivery.domain.member.Member
-import com.example.estdelivery.domain.member.UnusedCouponBook
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
-import io.mockk.verify
 
 class HandoutCouponServiceTest : FreeSpec({
     val loadShopStatePort = mockk<LoadShopStatePort>()
