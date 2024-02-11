@@ -9,8 +9,8 @@ class Shop(
     private val handOutCouponBook: HandOutCouponBook,
     private val usedCouponBook: UsedCouponBook,
     private val royalCustomers: RoyalCustomers,
-    private val name: String,
-    private val id: Long? = null,
+    val name: String,
+    internal val id: Long? = null,
 ) {
     fun publishCoupon(coupon: Coupon) {
         publishedCoupons.publishCoupon(coupon)
@@ -39,6 +39,10 @@ class Shop(
 
     fun showHandOutCoupon(): List<Coupon> {
         return handOutCouponBook.showHandOutCoupon()
+    }
+
+    fun showUsedCoupons(): List<Coupon> {
+        return usedCouponBook.showUsedCoupons()
     }
 }
 

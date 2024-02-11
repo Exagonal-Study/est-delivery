@@ -17,4 +17,8 @@ class UsedCouponBook(
 
         usedCouponBook.addCoupon(coupon)
     }
+
+    fun showUsedCoupons(): List<Coupon> {
+        return usedCouponBook.showCoupons()
+    }
 }
