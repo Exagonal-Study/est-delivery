@@ -1,4 +1,4 @@
-package com.example.estdelivery.adapter.out.persistence
+package com.example.estdelivery.adapter.out.persistence.user
 
 import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime

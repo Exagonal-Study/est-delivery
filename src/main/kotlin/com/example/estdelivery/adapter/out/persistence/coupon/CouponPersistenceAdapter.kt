@@ -1,4 +1,4 @@
-package com.example.estdelivery.adapter.out.persistence
+package com.example.estdelivery.adapter.out.persistence.coupon
 
 import com.example.estdelivery.application.domain.model.Coupon
 import com.example.estdelivery.application.port.out.CreateCouponPort

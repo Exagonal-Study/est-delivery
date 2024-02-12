@@ -8,6 +8,7 @@ enum class ErrorCode(
     val message: String,
 ) {
     DUPLICATED_COUPON(1000, HttpStatus.BAD_REQUEST, "duplicated coupon."),
-    NOT_FOUND_COUPON_CONFIG(1001, HttpStatus.NOT_FOUND, "not found coupon config.")
+    NOT_FOUND_COUPON_CONFIG(1001, HttpStatus.NOT_FOUND, "not found coupon config."),
+    UNAUTHORIZED(401, HttpStatus.UNAUTHORIZED, "user id is required.")
     ;
 }

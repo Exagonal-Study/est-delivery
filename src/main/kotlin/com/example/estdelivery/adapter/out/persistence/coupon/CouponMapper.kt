@@ -1,5 +1,6 @@
-package com.example.estdelivery.adapter.out.persistence
+package com.example.estdelivery.adapter.out.persistence.coupon
 
+import com.example.estdelivery.adapter.out.persistence.user.UserCouponEntity
 import com.example.estdelivery.application.domain.model.Coupon
 
 
