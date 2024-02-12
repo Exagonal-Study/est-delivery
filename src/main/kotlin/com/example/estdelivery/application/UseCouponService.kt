@@ -23,15 +23,7 @@ class UseCouponService(
      */
     override fun useCoupon(useCouponCommand: UseCouponCommand) {
         val member = loadMemberStatePort.findById(useCouponCommand.memberId).toMember()
-
-        /**
-         * 조회한 쿠폰과 회원이 가진 쿠폰북을 비교해 유효한지 판단한다.
-         */
         val coupon = loadCouponStatePort.findById(useCouponCommand.couponId).toCoupon()
-        if (member.hasCoupon(coupon).not()) {
-            throw IllegalArgumentException("쿠폰이 유효하지 않습니다.")
-        }
-
         val shopOwner = loadShopOwnerStatePort.findByShopId(useCouponCommand.shopId).toShopOwner()
 
         member.useCoupon(coupon)
