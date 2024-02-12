@@ -12,7 +12,7 @@ import com.example.estdelivery.domain.shop.Shop
 class IssuePublishedCouponService(
     private val loadMemberStatePort: LoadMemberStatePort,
     private val loadCouponStatePort: LoadCouponStatePort,
-    private val loadShopStatePort: LoadShopStatePort,
+    private val loadShopOwnerStatePort: LoadShopOwnerStatePort,
     private val updateMemberStatePort: UpdateMemberStatePort,
     private val updateShopStatePort: UpdateShopStatePort,
 ) : IssuePublishedCouponUseCase {
@@ -53,7 +53,7 @@ class IssuePublishedCouponService(
     }
 
     private fun getShop(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
-        loadShopStatePort.findById(issuePublishedCouponCommand.shopId).toShop()
+        loadShopOwnerStatePort.findByShopId(issuePublishedCouponCommand.shopId).toShopOwner().showShop()
 
     private fun getCoupon(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
         loadCouponStatePort.findByCouponId(issuePublishedCouponCommand.couponId).toCoupon()

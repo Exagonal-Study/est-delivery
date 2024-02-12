@@ -6,10 +6,12 @@ import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.CouponStateAmountType.RATE
 import com.example.estdelivery.application.port.out.state.CouponStateType.PUBLISHED
 import com.example.estdelivery.application.port.out.state.MemberState
+import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.application.port.out.state.ShopState
-import com.example.estdelivery.domain.fixture.가게_이름
-import com.example.estdelivery.domain.fixture.쿠폰_설명
-import com.example.estdelivery.domain.fixture.쿠폰_이름
+import com.example.estdelivery.domain.coupon.Coupon
+import com.example.estdelivery.domain.coupon.CouponBook
+import com.example.estdelivery.domain.fixture.*
+import com.example.estdelivery.domain.shop.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
@@ -26,9 +28,8 @@ private const val 회원_이름 = "이건창"
  * - 게시되지 않은 쿠폰은 발행 될 수 없다.
  */
 class IssuePublishedCouponServiceTest : FreeSpec({
-
     val loadCouponStatePort = mockk<LoadCouponStatePort>()
-    val loadShopStatePort = mockk<LoadShopStatePort>()
+    val loadShopOwnerStatePort = mockk<LoadShopOwnerStatePort>()
     val loadMemberStatePort = mockk<LoadMemberStatePort>()
     val updateShopStatePort = mockk<UpdateShopStatePort>()
     val updateMemberStatePort = mockk<UpdateMemberStatePort>()
@@ -39,7 +40,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         issuePublishedCouponUseCase = IssuePublishedCouponService(
             loadMemberStatePort,
             loadCouponStatePort,
-            loadShopStatePort,
+            loadShopOwnerStatePort,
             updateMemberStatePort,
             updateShopStatePort
         )
@@ -52,26 +53,19 @@ class IssuePublishedCouponServiceTest : FreeSpec({
      */
     "회원은 가게에 게시된 쿠폰북에서 쿠폰을 꺼내 자신의 쿠폰 북에 담는다." {
         // given
-        val memberId = 1L
-        val shopId = 1L
-        val couponId = 1L
+        val 할인쿠폰 = 게시된_고정_할인_쿠폰
+        val 가게 = 게시된_쿠폰이_있는_프리퍼(할인쿠폰)
+        val 회원_상태 = MemberState(회원_이름, listOf(), 1L)
+        val memberId = 회원_상태.toMember().id
+        val shopId = 가게.id!!
+        val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 할인쿠폰_10퍼센트_상태 = CouponState(쿠폰_이름, 쿠폰_설명, RATE, PUBLISHED, 10, couponId)
-        val 할인쿠폰_10퍼센트 = 할인쿠폰_10퍼센트_상태.toCoupon()
-
-        val 회원_상태 = MemberState(회원_이름, listOf(), memberId)
+        val 프리퍼_주인_상태 = ShopOwnerState(가게, 1L)
         val 변경된_가게_상태 = slot<ShopState>()
         val 변경된_회원_상태 = slot<MemberState>()
-
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
-        every { loadShopStatePort.findById(shopId) } returns ShopState(
-            가게_이름,
-            listOf(할인쿠폰_10퍼센트),
-            listOf(),
-            listOf(),
-            listOf()
-        )
+        every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)
+        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateMemberStatePort.update(capture(변경된_회원_상태)) } returns Unit
         every { updateShopStatePort.update(capture(변경된_가게_상태)) } returns Unit
 
@@ -79,31 +73,25 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         issuePublishedCouponUseCase.issuePublishedCoupon(issuePublishedCouponCommand)
 
         // then
-        변경된_회원_상태.captured.toMember().showMyCouponBook() shouldContain 할인쿠폰_10퍼센트
+        변경된_회원_상태.captured.toMember().showMyCouponBook() shouldContain 할인쿠폰
         변경된_가게_상태.captured.toShop().showRoyalCustomers() shouldContain 회원_상태.toMember()
     }
 
     "이미 가진 쿠폰이라면 담을 수 없다." {
         // given
-        val memberId = 1L
-        val shopId = 1L
-        val couponId = 1L
+        val 할인쿠폰 = 게시된_고정_할인_쿠폰
+        val 가게 = 게시된_쿠폰이_있는_프리퍼(할인쿠폰)
+        val 회원_상태 = MemberState(회원_이름, listOf(), 1L)
+        val memberId = 회원_상태.toMember().id
+        val shopId = 가게.id!!
+        val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 할인쿠폰_10퍼센트_상태 = CouponState(쿠폰_이름, 쿠폰_설명, RATE, PUBLISHED, 10, couponId)
-        val 할인쿠폰_10퍼센트 = 할인쿠폰_10퍼센트_상태.toCoupon()
-
-        val 회원_상태 = MemberState(회원_이름, listOf(할인쿠폰_10퍼센트), memberId)
+        val 프리퍼_주인_상태 = ShopOwnerState(게시된_쿠폰이_있는_프리퍼, 1L)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
+        every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)
         every { updateMemberStatePort.update(any()) } returns Unit
-        every { loadShopStatePort.findById(shopId) } returns ShopState(
-            가게_이름,
-            listOf(할인쿠폰_10퍼센트),
-            listOf(),
-            listOf(),
-            listOf()
-        )
+        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateShopStatePort.update(any()) } returns Unit
 
         // when & then
@@ -114,17 +102,19 @@ class IssuePublishedCouponServiceTest : FreeSpec({
 
     "게시되지 않은 쿠폰을 받을 수 없다." {
         // given
-        val memberId = 1L
-        val shopId = 1L
-        val couponId = 1L
+        val 할인쿠폰 = 게시된_고정_할인_쿠폰
+        val 가게 = 게시된_쿠폰이_있는_프리퍼(할인쿠폰)
+        val 회원_상태 = MemberState(회원_이름, listOf(), 1L)
+        val memberId = 회원_상태.toMember().id
+        val shopId = 가게.id!!
+        val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 할인쿠폰_10퍼센트_상태 = CouponState(쿠폰_이름, 쿠폰_설명, RATE, PUBLISHED, 10, couponId)
-        val 회원_상태 = MemberState(회원_이름, listOf(), memberId)
+        val 프리퍼_주인_상태 = ShopOwnerState(새로_창업해서_아무것도_없는_프리퍼, 1L)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰_10퍼센트_상태
+        every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)
         every { updateMemberStatePort.update(any()) } returns Unit
-        every { loadShopStatePort.findById(shopId) } returns ShopState(가게_이름, listOf(), listOf(), listOf(), listOf())
+        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateShopStatePort.update(any()) } returns Unit
 
         // when & then
