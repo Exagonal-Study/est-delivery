@@ -3,15 +3,11 @@ package com.example.estdelivery.application
 import com.example.estdelivery.application.port.`in`.command.IssuePublishedCouponCommand
 import com.example.estdelivery.application.port.out.*
 import com.example.estdelivery.application.port.out.state.CouponState
-import com.example.estdelivery.application.port.out.state.CouponStateAmountType.RATE
-import com.example.estdelivery.application.port.out.state.CouponStateType.PUBLISHED
 import com.example.estdelivery.application.port.out.state.MemberState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
-import com.example.estdelivery.application.port.out.state.ShopState
-import com.example.estdelivery.domain.coupon.Coupon
-import com.example.estdelivery.domain.coupon.CouponBook
-import com.example.estdelivery.domain.fixture.*
-import com.example.estdelivery.domain.shop.*
+import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
+import com.example.estdelivery.domain.fixture.게시된_쿠폰이_있는_프리퍼
+import com.example.estdelivery.domain.fixture.새로_창업해서_아무것도_없는_프리퍼
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
@@ -31,8 +27,8 @@ class IssuePublishedCouponServiceTest : FreeSpec({
     val loadCouponStatePort = mockk<LoadCouponStatePort>()
     val loadShopOwnerStatePort = mockk<LoadShopOwnerStatePort>()
     val loadMemberStatePort = mockk<LoadMemberStatePort>()
-    val updateShopStatePort = mockk<UpdateShopStatePort>()
     val updateMemberStatePort = mockk<UpdateMemberStatePort>()
+    val updateShopOwnerStatePort = mockk<UpdateShopOwnerStatePort>()
 
     lateinit var issuePublishedCouponUseCase: IssuePublishedCouponService
 
@@ -42,7 +38,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
             loadCouponStatePort,
             loadShopOwnerStatePort,
             updateMemberStatePort,
-            updateShopStatePort
+            updateShopOwnerStatePort
         )
     }
 
@@ -61,38 +57,37 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
         val 프리퍼_주인_상태 = ShopOwnerState(가게, 1L)
-        val 변경된_가게_상태 = slot<ShopState>()
+        val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
         val 변경된_회원_상태 = slot<MemberState>()
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateMemberStatePort.update(capture(변경된_회원_상태)) } returns Unit
-        every { updateShopStatePort.update(capture(변경된_가게_상태)) } returns Unit
+        every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
 
         // when
         issuePublishedCouponUseCase.issuePublishedCoupon(issuePublishedCouponCommand)
 
         // then
         변경된_회원_상태.captured.toMember().showMyCouponBook() shouldContain 할인쿠폰
-        변경된_가게_상태.captured.toShop().showRoyalCustomers() shouldContain 회원_상태.toMember()
+        변경된_프리퍼_주인_상태.captured.toShopOwner().showShop().showRoyalCustomers() shouldContain 회원_상태.toMember()
     }
 
-    "이미 가진 쿠폰이라면 담을 수 없다." {
+    "사용자가 이미 발행한 쿠폰이라면 담을 수 없다." {
         // given
-        val 할인쿠폰 = 게시된_고정_할인_쿠폰
-        val 가게 = 게시된_쿠폰이_있는_프리퍼(할인쿠폰)
-        val 회원_상태 = MemberState(회원_이름, listOf(), 1L)
+        val 가게 = 게시된_쿠폰이_있는_프리퍼(게시된_고정_할인_쿠폰)
+        val 회원_상태 = MemberState(회원_이름, listOf(게시된_고정_할인_쿠폰), 1L)
         val memberId = 회원_상태.toMember().id
         val shopId = 가게.id!!
-        val couponId = 할인쿠폰.id!!
+        val couponId = 게시된_고정_할인_쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 프리퍼_주인_상태 = ShopOwnerState(게시된_쿠폰이_있는_프리퍼, 1L)
+        val 프리퍼_주인_상태 = ShopOwnerState(게시된_쿠폰이_있는_프리퍼(게시된_고정_할인_쿠폰), 1L)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
-        every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)
+        every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(게시된_고정_할인_쿠폰)
         every { updateMemberStatePort.update(any()) } returns Unit
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
-        every { updateShopStatePort.update(any()) } returns Unit
+        every { updateShopOwnerStatePort.update(any()) } returns Unit
 
         // when & then
         shouldThrow<IllegalArgumentException> {
@@ -115,7 +110,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)
         every { updateMemberStatePort.update(any()) } returns Unit
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
-        every { updateShopStatePort.update(any()) } returns Unit
+        every { updateShopOwnerStatePort.update(any()) } returns Unit
 
         // when & then
         shouldThrow<IllegalArgumentException> {
