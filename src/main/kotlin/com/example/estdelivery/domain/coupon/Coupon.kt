@@ -11,21 +11,36 @@ class Coupon(
     val expiryDate: LocalDate
 ) {
     init {
+        validateDiscountValue()
+        validateExpiryDateUponCreation()
+        validateRateCouponDiscountValue()
+    }
+
+    companion object {
+        private const val MAX_DISCOUNT_RATE = 1.0
+    }
+
+    private fun validateDiscountValue() {
         if (discountValue < 0) {
             throw IllegalArgumentException("Discount value cannot be negative")
         }
-
-        if (LocalDate.now().isAfter(expiryDate)) {
+    }
+    private fun validateExpiryDateUponCreation() {
+        val tomorrow = LocalDate.now().plusDays(1)
+        if (tomorrow.isAfter(expiryDate)) {
             throw IllegalArgumentException("Expiry date cannot be in the past")
         }
+    }
 
-        if (type == CouponType.RATE && discountValue > 1) {
-            throw IllegalArgumentException("Rate coupon discount value cannot be greater than 1")
+    private fun validateRateCouponDiscountValue() {
+        if (type == CouponType.RATE && discountValue > MAX_DISCOUNT_RATE) {
+            throw IllegalArgumentException("Rate coupon discount value cannot be greater than $MAX_DISCOUNT_RATE")
         }
     }
 
     fun validateExpiryDate() {
-        if (LocalDate.now().isAfter(expiryDate)) {
+        val tomorrow = LocalDate.now().plusDays(1)
+        if (tomorrow.isAfter(expiryDate)) {
             throw IllegalArgumentException("Coupon is expired")
         }
     }
