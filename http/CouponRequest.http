@@ -1,0 +1,10 @@
+### 쿠폰 생성 API
+POST {{apiAddress}}/coupons
+Content-Type: application/json
+
+{
+    "name": "신규가입쿠폰",
+    "type": "RATE",
+    "discountValue": 0.7,
+    "expiryDate": "2024-04-31"
+}
