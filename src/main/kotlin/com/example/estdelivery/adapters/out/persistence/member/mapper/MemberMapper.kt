@@ -1,7 +1,7 @@
 package com.example.estdelivery.adapters.out.persistence.member.mapper
 
 import com.example.estdelivery.adapters.out.persistence.member.entity.MemberEntity
-import com.example.estdelivery.domain.Member
+import com.example.estdelivery.domain.member.Member
 
 object MemberMapper {
     fun fromDomain(member: Member): MemberEntity {

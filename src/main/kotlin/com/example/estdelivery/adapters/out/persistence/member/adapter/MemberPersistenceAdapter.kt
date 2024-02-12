@@ -3,7 +3,7 @@ package com.example.estdelivery.adapters.out.persistence.member.adapter
 import com.example.estdelivery.adapters.out.persistence.member.mapper.MemberMapper
 import com.example.estdelivery.adapters.out.persistence.member.repository.MemberRepository
 import com.example.estdelivery.application.port.out.member.MemberPersistencePort
-import com.example.estdelivery.domain.Member
+import com.example.estdelivery.domain.member.Member
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 

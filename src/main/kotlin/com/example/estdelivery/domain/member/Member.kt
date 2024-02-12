@@ -1,5 +1,4 @@
-package com.example.estdelivery.domain
-
+package com.example.estdelivery.domain.member
 
 class Member(
     val id: Long? = null,

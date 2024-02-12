@@ -1,6 +1,6 @@
-package com.example.estdelivery.adapters.`in`.web.controller
+package com.example.estdelivery.adapters.`in`.web.member.controller
 
-import com.example.estdelivery.adapters.`in`.web.dto.request.MemberCommand
+import com.example.estdelivery.adapters.`in`.web.member.dto.request.MemberCommand
 import com.example.estdelivery.application.dto.member.MemberResponse
 import com.example.estdelivery.application.port.`in`.member.CreateMemberUseCase
 import org.springframework.web.bind.annotation.PostMapping
