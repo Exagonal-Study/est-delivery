@@ -12,15 +12,15 @@ class Coupon(
 ) {
     init {
         if (discountValue < 0) {
-            throw Exception("Discount value cannot be negative")
+            throw IllegalArgumentException("Discount value cannot be negative")
         }
 
         if (LocalDate.now().isAfter(expiryDate)) {
-            throw Exception("Expiry date cannot be in the past")
+            throw IllegalArgumentException("Expiry date cannot be in the past")
         }
 
         if (type == CouponType.RATE && discountValue > 1) {
-            throw Exception("Rate coupon discount value cannot be greater than 1")
+            throw IllegalArgumentException("Rate coupon discount value cannot be greater than 1")
         }
     }
 }
