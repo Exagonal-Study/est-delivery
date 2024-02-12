@@ -2,7 +2,10 @@ package com.example.estdelivery.application
 
 import com.example.estdelivery.application.port.`in`.HandoutCouponUseCase
 import com.example.estdelivery.application.port.`in`.command.HandoutCouponCommand
-import com.example.estdelivery.application.port.out.*
+import com.example.estdelivery.application.port.out.CreateCouponStatePort
+import com.example.estdelivery.application.port.out.LoadCouponStatePort
+import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
+import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.domain.coupon.Coupon

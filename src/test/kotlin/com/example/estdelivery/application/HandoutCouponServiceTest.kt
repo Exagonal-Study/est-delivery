@@ -8,8 +8,6 @@ import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.domain.fixture.*
-import com.example.estdelivery.domain.member.Member
-import com.example.estdelivery.domain.shop.Shop
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
 import io.mockk.every

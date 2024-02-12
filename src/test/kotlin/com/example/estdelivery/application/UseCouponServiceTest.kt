@@ -5,12 +5,12 @@ import com.example.estdelivery.application.port.out.*
 import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.MemberState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
-import com.example.estdelivery.domain.fixture.*
+import com.example.estdelivery.domain.fixture.나눠준_비율_할인_쿠폰
+import com.example.estdelivery.domain.fixture.나눠준_쿠폰을_가진_삼건창
+import com.example.estdelivery.domain.fixture.나눠준_쿠폰이_있는_프리퍼
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotContain
-import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
@@ -63,6 +63,6 @@ class UseCouponServiceTest : FreeSpec({
 
         // then
         변경된_회원_상태.captured.toMember().showMyCouponBook() shouldNotContain 나눠준_비율_할인_쿠폰
-        변경된_프리퍼_주인_상태.captured.toShopOwner().showUsedCouponBook() shouldContain  나눠준_비율_할인_쿠폰
+        변경된_프리퍼_주인_상태.captured.toShopOwner().showUsedCouponBook() shouldContain 나눠준_비율_할인_쿠폰
     }
 })

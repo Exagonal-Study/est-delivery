@@ -4,7 +4,6 @@ import com.example.estdelivery.application.port.`in`.PublishCouponUseCase
 import com.example.estdelivery.application.port.`in`.command.PublishCouponCommand
 import com.example.estdelivery.application.port.out.CreateCouponStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
-import com.example.estdelivery.application.port.out.LoadShopStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
