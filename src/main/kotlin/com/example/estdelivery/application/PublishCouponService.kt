@@ -10,7 +10,6 @@ import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
 
 class PublishCouponService(
-    private val loadShopStatePort: LoadShopStatePort,
     private val loadShopOwnerPort: LoadShopOwnerStatePort,
     private val createCouponStatePort: CreateCouponStatePort,
     private val updateShopOwnerStatePort: UpdateShopOwnerStatePort,
@@ -25,10 +24,6 @@ class PublishCouponService(
      */
     override fun publishCoupon(publishCouponCommand: PublishCouponCommand) {
         val shopOwner = loadShopOwnerPort.findById(publishCouponCommand.shopOwnerId).toShopOwner()
-        val shop = loadShopStatePort.findById(publishCouponCommand.shopId).toShop()
-
-        require(shopOwner.isOwn(shop)) { "가게 주인이 아닙니다." }
-
         val publishedCoupon = createCouponStatePort.create(CouponState.from(publishCouponCommand.coupon)).toCoupon()
         shopOwner.publishCouponInShop(publishedCoupon)
         updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))

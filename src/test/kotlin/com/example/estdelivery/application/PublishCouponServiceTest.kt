@@ -11,7 +11,7 @@ import com.example.estdelivery.application.port.out.state.ShopState
 import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
 import com.example.estdelivery.domain.fixture.게시할_쿠폰
-import com.example.estdelivery.domain.fixture.프리퍼
+import com.example.estdelivery.domain.fixture.새로_창업해서_아무것도_없는_프리퍼
 import com.example.estdelivery.domain.shop.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
@@ -24,14 +24,12 @@ import io.mockk.slot
 class PublishCouponServiceTest : FreeSpec({
     val loadShopOwnerPort = mockk<LoadShopOwnerStatePort>()
     val createCouponStatePort = mockk<CreateCouponStatePort>()
-    val loadShopStatePort = mockk<LoadShopStatePort>()
     val updateShopOwnerStatePort = mockk<UpdateShopOwnerStatePort>()
 
     lateinit var publishCouponService: PublishCouponService
 
     beforeTest {
         publishCouponService = PublishCouponService(
-            loadShopStatePort,
             loadShopOwnerPort,
             createCouponStatePort,
             updateShopOwnerStatePort
@@ -41,18 +39,17 @@ class PublishCouponServiceTest : FreeSpec({
     "가게 주인은 쿠폰을 게시한다." {
         // given
         val shopOwnerId = 1L
-        val shopId = 프리퍼.id!!
+        val shopId = 새로_창업해서_아무것도_없는_프리퍼.id!!
         val publishCouponCommand = PublishCouponCommand(
             shopOwnerId,
             shopId,
             게시할_쿠폰
         )
-        val 프리퍼_주인_상태 = ShopOwnerState(프리퍼, shopOwnerId)
+        val 프리퍼_주인_상태 = ShopOwnerState(새로_창업해서_아무것도_없는_프리퍼, shopOwnerId)
         val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
 
         // when
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
-        every { loadShopStatePort.findById(shopId) } returns ShopState.from(프리퍼)
         every { createCouponStatePort.create(CouponState.from(게시할_쿠폰)) } returns CouponState.from(게시된_고정_할인_쿠폰)
         every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
 
@@ -65,7 +62,7 @@ class PublishCouponServiceTest : FreeSpec({
     "게시된 쿠폰북에 동일한 쿠폰이 있을 수 없다." {
         // given
         val shopOwnerId = 1L
-        val shopId = 프리퍼.id!!
+        val shopId = 새로_창업해서_아무것도_없는_프리퍼.id!!
         val publishCouponCommand = PublishCouponCommand(
             shopOwnerId,
             shopId,
@@ -84,7 +81,6 @@ class PublishCouponServiceTest : FreeSpec({
         // when
 
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
-        every { loadShopStatePort.findById(shopId) } returns ShopState.from(이미_쿠폰을_게시한_프리퍼)
         every { createCouponStatePort.create(CouponState.from(게시할_쿠폰)) } returns CouponState.from(게시된_고정_할인_쿠폰)
 
         // then
