@@ -1,5 +1,6 @@
 package com.example.estdelivery.adapters.out.persistence.coupon.entity
 
+import com.example.estdelivery.adapters.out.persistence.common.BaseTimeEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -9,7 +10,7 @@ import jakarta.persistence.Id
 class IssuedCouponEntity(
     memberId: Long,
     couponId: Long
-) {
+) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
