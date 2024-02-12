@@ -12,7 +12,7 @@ class Coupon(
 ) {
     init {
         validateDiscountValue()
-        validateExpiryDateUponCreation()
+        validateExpiryDate()
         validateRateCouponDiscountValue()
     }
 
@@ -25,7 +25,7 @@ class Coupon(
             throw IllegalArgumentException("Discount value cannot be negative")
         }
     }
-    private fun validateExpiryDateUponCreation() {
+    private fun validateExpiryDate() {
         val tomorrow = LocalDate.now().plusDays(1)
         if (tomorrow.isAfter(expiryDate)) {
             throw IllegalArgumentException("Expiry date cannot be in the past")
@@ -38,7 +38,7 @@ class Coupon(
         }
     }
 
-    fun validateExpiryDate() {
+    fun isExpired() {
         val tomorrow = LocalDate.now().plusDays(1)
         if (tomorrow.isAfter(expiryDate)) {
             throw IllegalArgumentException("Coupon is expired")

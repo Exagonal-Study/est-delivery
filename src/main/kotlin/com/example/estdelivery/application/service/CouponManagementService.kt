@@ -22,7 +22,7 @@ class CouponManagementService(
 
     override fun issueCoupon(memberId: Long, couponId: Long) {
         val coupon = couponQueryPort.getCoupon(couponId)
-        coupon.validateExpiryDate()
+        coupon.isExpired()
         couponPersistencePort.issueCoupon(memberId, couponId)
     }
 
