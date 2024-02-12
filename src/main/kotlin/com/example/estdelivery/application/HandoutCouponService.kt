@@ -9,7 +9,6 @@ import com.example.estdelivery.domain.coupon.Coupon
 
 class HandoutCouponService(
     private val loadShopOwnerStatePort: LoadShopOwnerStatePort,
-    private val loadShopStatePort: LoadShopStatePort,
     private val loadCouponStatePort: LoadCouponStatePort,
     private val updateShopOwnerStatePort: UpdateShopOwnerStatePort,
     private val createCouponStatePort: CreateCouponStatePort,
@@ -23,10 +22,6 @@ class HandoutCouponService(
      */
     override fun handoutCoupon(handoutCouponCommand: HandoutCouponCommand) {
         val shopOwner = loadShopOwnerStatePort.findById(handoutCouponCommand.shopOwnerId).toShopOwner()
-        val shop = loadShopStatePort.findById(handoutCouponCommand.shopId).toShop()
-
-        require(shopOwner.isOwn(shop)) { "가게 주인이 아닙니다." }
-
         val handoutCoupon: Coupon = getHandoutCoupon(handoutCouponCommand)
         shopOwner.handOutCouponToRoyalCustomersInShop(handoutCoupon)
         updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))
