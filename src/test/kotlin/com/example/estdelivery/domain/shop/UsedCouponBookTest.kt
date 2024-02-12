@@ -29,6 +29,6 @@ class UsedCouponBookTest : FreeSpec({
 
         // then
         shouldThrow<IllegalArgumentException> { usedCouponBook.useCoupon(게시되지_않은_쿠폰, shopCouponBook) }
-            .message shouldBe "게시하지 않은 쿠폰입니다."
+            .message shouldBe "게시하거나 나눠주지 않은 쿠폰입니다."
     }
 })

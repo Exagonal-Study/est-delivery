@@ -9,6 +9,3 @@ val 게시할_쿠폰 = Coupon.FixDiscountCoupon(1000, "1000원 할인 쿠폰", "
 val 게시된_고정_할인_쿠폰 = Coupon.FixDiscountCoupon(1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED, 2L)
 val 게시되지_않은_쿠폰 = Coupon.FixDiscountCoupon(1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_HAND_OUT, 1L)
 val 나눠주지_않은_쿠폰 = Coupon.FixDiscountCoupon(1000, "1000원 할인 쿠폰", "1000원 할인 쿠폰 설명", CouponType.IS_PUBLISHED, 2L)
-
-const val 쿠폰_이름 = "10% 할인 쿠폰"
-const val 쿠폰_설명 = "게시된 10% 할인 쿠폰입니다."

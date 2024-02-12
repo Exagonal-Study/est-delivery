@@ -40,14 +40,14 @@ class UseCouponServiceTest : FreeSpec({
         val memberId = 1L
         val shopOwnerId = 1L
         val shopId = 1L
-        val couponId = 1L
+        val couponId = 나눠준_비율_할인_쿠폰.id!!
         val useCouponCommand = UseCouponCommand(
             memberId,
             shopId,
             couponId
         )
 
-        val 프리퍼_주인_상태 = ShopOwnerState(나눠준_쿠폰이_있는_프리퍼, shopOwnerId)
+        val 프리퍼_주인_상태 = ShopOwnerState(나눠준_쿠폰이_있는_프리퍼(나눠준_비율_할인_쿠폰), shopOwnerId)
         val 회원 = 나눠준_쿠폰을_가진_삼건창
         val 변경된_회원_상태 = slot<MemberState>()
         val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
