@@ -4,4 +4,5 @@ import com.example.estdelivery.application.port.out.state.ShopOwnerState
 
 interface LoadShopOwnerStatePort {
     fun findById(shopOwnerId: Long): ShopOwnerState
+    fun findByShopId(shopId: Long): ShopOwnerState
 }

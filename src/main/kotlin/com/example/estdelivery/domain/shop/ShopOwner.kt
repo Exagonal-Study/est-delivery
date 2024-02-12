@@ -16,4 +16,5 @@ class ShopOwner(
     fun showRoyalCustomersInShop() = shop.showRoyalCustomers()
     fun showShop() = shop
     fun isOwn(shop: Shop) = this.shop == shop
+    fun showUsedCouponBook() = shop.showUsedCoupons()
 }

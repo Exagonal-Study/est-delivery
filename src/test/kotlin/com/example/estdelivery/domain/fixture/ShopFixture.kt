@@ -21,3 +21,11 @@ val 단골이_있는_프리퍼 = Shop(
     가게_이름,
     2L
 )
+val 나눠준_쿠폰이_있는_프리퍼 = Shop(
+    PublishedCouponBook(CouponBook(listOf())),
+    HandOutCouponBook(CouponBook(listOf(나눠준_비율_할인_쿠폰))),
+    UsedCouponBook(CouponBook(listOf())),
+    RoyalCustomers(단골_명단),
+    가게_이름,
+    3L
+)
