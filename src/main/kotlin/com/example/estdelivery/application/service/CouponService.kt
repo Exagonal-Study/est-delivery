@@ -11,6 +11,7 @@ import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.coupon.CouponLog
 import com.example.estdelivery.domain.generator.CouponIdGenerator
 import com.example.estdelivery.domain.member.Member
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,6 +24,7 @@ class CouponService(
     /**
      * 발급을 위한 쿠폰을 생성한다.
      */
+    @Transactional
     override fun generateCoupon(generateCouponCommand: GenerateCouponCommand): CouponResponse {
         val savedCoupon = couponPersistencePort.saveCoupon(generateCouponCommand.toCouponDomain())
         return CouponResponse(savedCoupon.name, savedCoupon.type, savedCoupon.couponEventType, savedCoupon.getCouponQuantity())
@@ -33,6 +35,7 @@ class CouponService(
      * 발급 시, 기존 생성한 쿠폰 수량을 1개 차감한다.
      * 그 후, 발급 로그를 저장한다.
      */
+    @Transactional
     override fun issuedCoupon(memberId: Long, issuedCouponCommand: IssuedCouponCommand): CouponResponse {
         val member = memberPersistencePort.findMemberById(memberId)
         val coupon = couponPersistencePort.findCouponById(issuedCouponCommand.couponId)
