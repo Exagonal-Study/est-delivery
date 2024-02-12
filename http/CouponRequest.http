@@ -1,0 +1,13 @@
+### 쿠폰 발급
+POST {{host}}/coupons
+Content-Type: application/json
+X-Authenticated-User: 2
+
+{
+  "couponConfigId": 1
+}
+
+
+### 쿠폰 조회
+GET {{host}}/coupons
+X-Authenticated-User: 2
