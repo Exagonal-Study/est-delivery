@@ -31,7 +31,7 @@ object SnowflakeIdGeneratorUtils {
 
         lastTimestamp = timestamp
 
-        return (((timestamp - epoch) shl (machineIdBits + sequenceBits)) or (machineId shl sequenceBits) or sequence).toString()
+        return (((timestamp - epoch) shl (MAX_MACHINE_ID_LENGTH + sequenceBits)) or (machineId shl sequenceBits) or sequence).toString()
     }
 
     private fun tilNextMillis(lastTimestamp: Long): Long {
