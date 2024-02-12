@@ -12,5 +12,5 @@ class FindUserCouponService(
     val findUserCouponPort: FindUserCouponPort
 ) : FindUserCouponUseCase {
     override fun findUserCoupon(userId: Long): List<UserCouponResponse> =
-        findUserCouponPort.findByUserId(userId).map { UserCouponResponse(it.code, it.configId) }
+        findUserCouponPort.findByUserId(userId).map { UserCouponResponse(it.code.get(), it.configId) }
 }

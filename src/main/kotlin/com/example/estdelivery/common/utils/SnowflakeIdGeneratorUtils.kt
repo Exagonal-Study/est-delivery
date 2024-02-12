@@ -11,7 +11,7 @@ object SnowflakeIdGeneratorUtils {
     private var lastTimestamp = -1L
     private var sequence = 0L
 
-    fun generateId(machineId: Long, epoch: Long = 1627862400000L): Long {
+    fun generateId(machineId: Long, epoch: Long = 1627862400000L): String {
         require(machineId in 0..maxMachineId) { "Machine ID must be between 0 and $maxMachineId" }
 
         var timestamp = timeGen()
@@ -31,7 +31,7 @@ object SnowflakeIdGeneratorUtils {
 
         lastTimestamp = timestamp
 
-        return ((timestamp - epoch) shl (machineIdBits + sequenceBits)) or (machineId shl sequenceBits) or sequence
+        return (((timestamp - epoch) shl (machineIdBits + sequenceBits)) or (machineId shl sequenceBits) or sequence).toString()
     }
 
     private fun tilNextMillis(lastTimestamp: Long): Long {

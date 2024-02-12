@@ -4,11 +4,13 @@ import com.example.estdelivery.common.utils.SnowflakeIdGeneratorUtils
 
 data class Coupon(
     val id: Long? = null,
-    var code: String,
+    var code: CouponCode,
     val configId: Long
 ) {
     companion object {
-        fun create(configId: Long): Coupon =
-            Coupon(code = SnowflakeIdGeneratorUtils.generateId(1).toString(), configId = configId)
+        fun create(configId: Long): Coupon = Coupon(
+            code = CouponCode(SnowflakeIdGeneratorUtils.generateId(1)),
+            configId = configId
+        )
     }
 }
