@@ -16,7 +16,7 @@ class Shop(
         publishedCoupons.publishCoupon(coupon)
     }
 
-    fun useCoupon(coupon: Coupon) {
+    fun receiveCoupon(coupon: Coupon) {
         usedCouponBook.useCoupon(coupon, CouponBook(publishedCoupons + handOutCouponBook))
     }
 

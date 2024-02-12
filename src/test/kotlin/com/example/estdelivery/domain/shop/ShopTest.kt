@@ -32,16 +32,16 @@ class ShopTest : FreeSpec({
 
     "이미 사용한 쿠폰은 재사용 할 수 없다." {
         프리퍼.publishCoupon(게시할_쿠폰)
-        프리퍼.useCoupon(게시할_쿠폰)
-        shouldThrow<IllegalArgumentException> { 프리퍼.useCoupon(게시할_쿠폰) }
+        프리퍼.receiveCoupon(게시할_쿠폰)
+        shouldThrow<IllegalArgumentException> { 프리퍼.receiveCoupon(게시할_쿠폰) }
     }
 
     "게시하지 않는 쿠폰인 경우 사용 할 수 없다." {
-        shouldThrow<IllegalArgumentException> { 프리퍼.useCoupon(게시되지_않은_쿠폰) }
+        shouldThrow<IllegalArgumentException> { 프리퍼.receiveCoupon(게시되지_않은_쿠폰) }
     }
 
     "나눠준 쿠폰이 아닌 경우 사용 할 수 없다." {
-        shouldThrow<IllegalArgumentException> { 프리퍼.useCoupon(나눠주지_않은_쿠폰) }
+        shouldThrow<IllegalArgumentException> { 프리퍼.receiveCoupon(나눠주지_않은_쿠폰) }
     }
 
     "모든 회원에게 쿠폰을 나눠줄 수 있다." {

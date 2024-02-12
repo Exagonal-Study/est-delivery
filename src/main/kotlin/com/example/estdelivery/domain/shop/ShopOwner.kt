@@ -7,18 +7,10 @@ class ShopOwner(
     private val shop: Shop,
     internal val id: Long? = null,
 ) {
-    fun handOutCouponToRoyalCustomersInShop(coupon: Coupon) {
-        shop.handOutCouponToRoyalCustomers(coupon)
-    }
-
-    fun publishCouponInShop(coupon: Coupon) {
-        shop.publishCoupon(coupon)
-    }
-
-    fun addRoyalCustomersInShop(vararg members: Member) {
-        shop.addRoyalCustomers(*members)
-    }
-
+    fun handOutCouponToRoyalCustomersInShop(coupon: Coupon) = shop.handOutCouponToRoyalCustomers(coupon)
+    fun publishCouponInShop(coupon: Coupon) = shop.publishCoupon(coupon)
+    fun addRoyalCustomersInShop(vararg members: Member) = shop.addRoyalCustomers(*members)
+    fun receiveCoupon(coupon: Coupon) = shop.receiveCoupon(coupon)
     fun showHandOutCouponInShop() = shop.showHandOutCoupon()
     fun showPublishedCouponsInShop() = shop.showPublishedCoupons()
     fun showRoyalCustomersInShop() = shop.showRoyalCustomers()
