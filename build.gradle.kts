@@ -24,6 +24,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation ("org.springframework:spring-context")
     runtimeOnly("com.h2database:h2")
 
     implementation("com.github.f4b6a3:tsid-creator:5.2.6")
