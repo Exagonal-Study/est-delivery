@@ -104,7 +104,7 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val shopId = 가게.id!!
         val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 프리퍼_주인_상태 = ShopOwnerState(새로_창업해서_아무것도_없는_프리퍼, 1L)
+        val 프리퍼_주인_상태 = ShopOwnerState(새로_창업해서_아무것도_없는_프리퍼(), 1L)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원_상태
         every { loadCouponStatePort.findByCouponId(couponId) } returns CouponState.from(할인쿠폰)

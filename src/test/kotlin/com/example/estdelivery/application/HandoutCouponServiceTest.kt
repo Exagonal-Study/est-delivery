@@ -34,7 +34,7 @@ class HandoutCouponServiceTest : FreeSpec({
 
     "쿠폰을 나눠줄 수 있다." {
         // given
-        val 가게 = 단골이_있는_멋진_프리퍼(일건창, 이건창)
+        val 가게 = 단골이_있는_멋진_프리퍼(일건창(), 이건창())
         val 프리퍼_주인_상태 = ShopOwnerState(가게, 1L)
         val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
 
@@ -61,7 +61,7 @@ class HandoutCouponServiceTest : FreeSpec({
 
     "이미 나눠줬던 쿠폰을 다시 나눠줄 때 새로운 단골들에게만 나눠준다." {
         // given
-        val 가게 = 단골이_있는_멋진_프리퍼(일건창, 이건창, 나눠준_쿠폰을_가진_삼건창)
+        val 가게 = 단골이_있는_멋진_프리퍼(일건창(), 이건창(), 나눠준_쿠폰을_가진_삼건창())
         val 프리퍼_주인_상태 = ShopOwnerState(가게, 1L)
         val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
 

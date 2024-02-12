@@ -6,7 +6,7 @@ import com.example.estdelivery.domain.member.Member
 import com.example.estdelivery.domain.shop.*
 
 const val 가게_이름 = "프리퍼"
-val 새로_창업해서_아무것도_없는_프리퍼 = Shop(
+fun 새로_창업해서_아무것도_없는_프리퍼() = Shop(
     PublishedCouponBook(CouponBook(listOf())),
     HandOutCouponBook(CouponBook(listOf())),
     UsedCouponBook(CouponBook(listOf())),
@@ -19,7 +19,7 @@ fun 나눠준_쿠폰이_있는_프리퍼(vararg coupon: Coupon) = Shop(
     PublishedCouponBook(CouponBook(listOf())),
     HandOutCouponBook(CouponBook(listOf(*coupon))),
     UsedCouponBook(CouponBook(listOf())),
-    RoyalCustomers(listOf(나눠준_쿠폰을_가진_삼건창, 일건창, 이건창)),
+    RoyalCustomers(listOf(나눠준_쿠폰을_가진_삼건창(), 일건창(), 이건창())),
     가게_이름,
     1L
 )
