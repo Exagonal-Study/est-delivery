@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.4"
+    id("java-test-fixtures")
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.22"
     kotlin("plugin.jpa") version "1.9.22"
@@ -31,6 +32,8 @@ dependencies {
     testImplementation("org.junit.jupiter", "junit-jupiter", "5.8.2")
     testImplementation("org.assertj", "assertj-core", "3.22.0")
     testImplementation("io.kotest", "kotest-runner-junit5", "5.4.0")
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("com.appmattus.fixture:fixture:1.2.0")
 }
 
 tasks.withType<KotlinCompile> {

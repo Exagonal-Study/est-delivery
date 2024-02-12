@@ -32,5 +32,5 @@ class CouponController(
     fun getCoupons(
         @UserId user: User,
     ): Result.Success<List<UserCouponResponse>> =
-        Result.Success(findUserCouponUseCase.findUserCoupon(user.id))
+        Result.Success(findUserCouponUseCase.findUserCoupons(user.id))
 }
