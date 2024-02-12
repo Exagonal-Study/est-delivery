@@ -1,0 +1,7 @@
+### 사용자 추가 API
+POST {{apiAddress}}/members
+Content-Type: application/json
+
+{
+  "name": "이상경"
+}
