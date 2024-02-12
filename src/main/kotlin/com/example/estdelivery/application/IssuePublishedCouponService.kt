@@ -49,7 +49,7 @@ class IssuePublishedCouponService(
     }
 
     private fun updateMember(member: Member) {
-        updateMemberStatePort.updateMember(MemberState.from(member))
+        updateMemberStatePort.update(MemberState.from(member))
     }
 
     private fun getShop(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
