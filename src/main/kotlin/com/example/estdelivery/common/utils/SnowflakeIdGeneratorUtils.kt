@@ -1,11 +1,11 @@
 package com.example.estdelivery.common.utils
 
+import com.example.estdelivery.common.Constant.MAX_MACHINE_ID_LENGTH
 import java.time.Instant
 
 object SnowflakeIdGeneratorUtils {
-    private const val machineIdBits = 5
     private const val sequenceBits = 12
-    private const val maxMachineId = (-1L).xor(-1L shl machineIdBits)
+    private const val maxMachineId = (-1L).xor(-1L shl MAX_MACHINE_ID_LENGTH)
     private const val sequenceMask = (-1L).xor(-1L shl sequenceBits)
 
     private var lastTimestamp = -1L
