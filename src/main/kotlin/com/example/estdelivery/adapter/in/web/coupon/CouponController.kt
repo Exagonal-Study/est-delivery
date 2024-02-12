@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 class CouponController(
     private val couponWriteUsecase: CouponWriteUsecase
 ) {
-    @PostMapping("/coupon/generate")
+    @PostMapping("/coupons/generate")
     fun generateCoupon(@RequestBody generateCouponCommand: GenerateCouponCommand): BaseResponseDto<CouponResponse> {
         val generateCoupon = couponWriteUsecase.generateCoupon(generateCouponCommand)
         return BaseResponseDto.success(data = generateCoupon)
