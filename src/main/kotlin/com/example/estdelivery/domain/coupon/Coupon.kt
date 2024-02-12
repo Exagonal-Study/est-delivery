@@ -13,7 +13,7 @@ class Coupon(
     val createdDate: LocalDateTime? = null,
 ) {
     init {
-        require(name.isNotEmpty() || name.isNotBlank()) { throw IllegalArgumentException("쿠폰 이름이 입력되지 않았습니다.") }
+        require(name.isNotBlank()) { throw IllegalArgumentException("쿠폰 이름이 입력되지 않았습니다.") }
         require(name.length <= 80) { throw IllegalArgumentException("쿠폰 이름은 80자를 넘을 수 없습니다.") }
     }
 
