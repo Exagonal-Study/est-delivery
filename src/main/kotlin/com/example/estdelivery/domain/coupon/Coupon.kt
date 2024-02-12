@@ -23,4 +23,10 @@ class Coupon(
             throw IllegalArgumentException("Rate coupon discount value cannot be greater than 1")
         }
     }
+
+    fun validateExpiryDate() {
+        if (LocalDate.now().isAfter(expiryDate)) {
+            throw IllegalArgumentException("Coupon is expired")
+        }
+    }
 }

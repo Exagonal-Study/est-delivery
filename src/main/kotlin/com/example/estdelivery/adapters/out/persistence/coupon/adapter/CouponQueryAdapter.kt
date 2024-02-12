@@ -17,4 +17,10 @@ class CouponQueryAdapter(
         val todayDate = LocalDate.now()
         return couponRepository.findByExpiryDateAfter(todayDate).map { CouponMapper.toDomain(it) }
     }
+
+    override fun getCoupon(couponId: Long): Coupon {
+        val couponEntity = couponRepository.findById(couponId)
+            .orElseThrow { throw IllegalArgumentException("Coupon not found") }
+        return CouponMapper.toDomain(couponEntity)
+    }
 }

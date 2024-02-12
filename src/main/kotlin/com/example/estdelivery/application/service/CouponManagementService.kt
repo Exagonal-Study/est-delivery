@@ -21,6 +21,21 @@ class CouponManagementService(
     }
 
     override fun issueCoupon(memberId: Long, couponId: Long) {
+        val coupon = couponQueryPort.getCoupon(couponId)
+        coupon.validateExpiryDate()
         couponPersistencePort.issueCoupon(memberId, couponId)
+    }
+
+    override fun getCoupons(): List<CouponsResponse> {
+        return couponQueryPort.getCoupons()
+            .map {
+                CouponsResponse(
+                    it.id!!,
+                    it.name,
+                    it.type,
+                    it.discountValue,
+                    it.expiryDate
+                )
+            }
     }
 }
