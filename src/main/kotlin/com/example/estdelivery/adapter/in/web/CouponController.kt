@@ -1,8 +1,8 @@
 package com.example.estdelivery.adapter.`in`.web
 
-import com.example.estdelivery.adapter.`in`.web.dto.ApiResponse
 import com.example.estdelivery.adapter.`in`.web.dto.CouponIssueRequest
 import com.example.estdelivery.adapter.`in`.web.dto.UserCouponResponse
+import com.example.estdelivery.application.domain.model.Result
 import com.example.estdelivery.application.domain.model.User
 import com.example.estdelivery.application.port.`in`.FindUserCouponUseCase
 import com.example.estdelivery.application.port.`in`.IssueCouponCommand
@@ -31,6 +31,6 @@ class CouponController(
     @GetMapping
     fun getCoupons(
         @UserId user: User,
-    ): ApiResponse<List<UserCouponResponse>> =
-        ApiResponse(findUserCouponUseCase.findUserCoupon(user.id))
+    ): Result.Success<List<UserCouponResponse>> =
+        Result.Success(findUserCouponUseCase.findUserCoupon(user.id))
 }
