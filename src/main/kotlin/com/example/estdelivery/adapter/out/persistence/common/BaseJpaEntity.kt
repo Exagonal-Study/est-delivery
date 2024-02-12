@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-class BaseJpaEntity {
+abstract class BaseJpaEntity {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
