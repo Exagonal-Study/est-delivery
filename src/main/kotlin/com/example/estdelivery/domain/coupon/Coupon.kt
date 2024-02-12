@@ -4,6 +4,7 @@ import com.example.estdelivery.common.types.coupon.CouponType
 import java.time.LocalDate
 
 class Coupon(
+    val id: Long? = null,
     val name: String,
     val type: CouponType,
     val discountValue: Double,

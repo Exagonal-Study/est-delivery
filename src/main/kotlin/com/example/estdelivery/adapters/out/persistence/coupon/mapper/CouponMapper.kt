@@ -16,6 +16,7 @@ object CouponMapper {
 
     fun toDomain(couponEntity: CouponEntity): Coupon {
         return Coupon(
+            id = couponEntity.id!!,
             name = couponEntity.name,
             type = couponEntity.type,
             discountValue = couponEntity.discountValue,
