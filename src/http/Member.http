@@ -1,0 +1,12 @@
+## 멤버생성
+POST http://localhost:8080/api/v1/member/register
+Content-Type: application/json
+
+{
+  "email": "test@test.com"
+}
+
+### ID로 멤버찾기
+@memberId = 1
+GET http://localhost:8080/api/v1/member/{{memberId}}
+Content-Type: application/json
