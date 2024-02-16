@@ -1,26 +1,26 @@
 package com.example.estdelivery.domain.coupon
 
 sealed class Coupon(
-    private val id: Long,
     open val name: String,
     open val description: String,
-    private val couponType: CouponType
+    internal val couponType: CouponType,
+    internal val id: Long? = null
 ) {
     class RateDiscountCoupon(
-        id: Long,
         val discountRate: Int,
         override val name: String,
         override val description: String,
-        couponType: CouponType
-    ) : Coupon(id, name, description, couponType)
+        couponType: CouponType,
+        id: Long? = null,
+    ) : Coupon(name, description, couponType, id)
 
     class FixDiscountCoupon(
-        id: Long,
         val discountAmount: Int,
         override val name: String,
         override val description: String,
-        couponType: CouponType
-    ) : Coupon(id, name, description, couponType)
+        couponType: CouponType,
+        id: Long? = null,
+    ) : Coupon(name, description, couponType, id)
 
     fun isPublished(): Boolean {
         return couponType == CouponType.IS_PUBLISHED

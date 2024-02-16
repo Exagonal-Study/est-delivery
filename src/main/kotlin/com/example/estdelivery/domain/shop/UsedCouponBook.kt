@@ -7,14 +7,12 @@ class UsedCouponBook(
     private val usedCouponBook: CouponBook = CouponBook(),
 ) {
     fun useCoupon(coupon: Coupon, shopCouponBook: CouponBook) {
-        if (usedCouponBook.showCoupons().contains(coupon)) {
-            throw IllegalArgumentException("이미 사용한 쿠폰입니다.")
-        }
-
-        if (!shopCouponBook.showCoupons().contains(coupon)) {
-            throw IllegalArgumentException("게시하지 않은 쿠폰입니다.")
-        }
-
+        require(usedCouponBook.showCoupons().contains(coupon).not()) { "이미 사용한 쿠폰입니다." }
+        require(shopCouponBook.showCoupons().contains(coupon)) { "게시하거나 나눠주지 않은 쿠폰입니다." }
         usedCouponBook.addCoupon(coupon)
+    }
+
+    fun showUsedCoupons(): List<Coupon> {
+        return usedCouponBook.showCoupons()
     }
 }

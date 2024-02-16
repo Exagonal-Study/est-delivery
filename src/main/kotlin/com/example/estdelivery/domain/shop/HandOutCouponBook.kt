@@ -11,10 +11,10 @@ class HandOutCouponBook(
     }
 
     fun addHandOutCoupon(coupon: Coupon) {
+        require(coupon.isHandOut()) { "나눠줄 수 없는 쿠폰입니다." }
         if (handOutCoupons.showCoupons().contains(coupon)) {
-            throw IllegalArgumentException("이미 나눠준 쿠폰입니다.")
+            return
         }
-
         handOutCoupons.addCoupon(coupon)
     }
 }

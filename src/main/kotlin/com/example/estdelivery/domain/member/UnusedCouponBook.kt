@@ -11,18 +11,12 @@ class UnusedCouponBook(
     }
 
     fun addUnusedCoupon(coupon: Coupon) {
-        if (unUsedCouponBook.showCoupons().contains(coupon)) {
-            throw IllegalArgumentException("이미 존재하는 쿠폰입니다.")
-        }
-
+        require(unUsedCouponBook.showCoupons().contains(coupon).not()) { "이미 존재하는 쿠폰입니다." }
         unUsedCouponBook.addCoupon(coupon)
     }
 
     fun removeUsedCoupon(coupon: Coupon) {
-        if (!unUsedCouponBook.showCoupons().contains(coupon)) {
-            throw IllegalArgumentException("사용할 수 없는 쿠폰입니다.")
-        }
-
+        require(unUsedCouponBook.showCoupons().contains(coupon)) { "존재하지 않는 쿠폰입니다." }
         unUsedCouponBook.deleteCoupon(coupon)
     }
 }

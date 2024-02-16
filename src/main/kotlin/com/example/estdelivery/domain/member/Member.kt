@@ -19,6 +19,10 @@ class Member(
         unusedCouponBook.addUnusedCoupon(coupon)
     }
 
+    fun hasCoupon(coupon: Coupon): Boolean {
+        return unusedCouponBook.showUnusedCoupons().contains(coupon)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

@@ -183,14 +183,18 @@ erDiagram
 		long coupon_id
 	}
 
-	coupon {
+    handout_coupon_book {
+    long shop_id
+    long coupon_id
+    }
+
+    coupon {
 		long id pk
 		long shop_id
 		string name
 		string description
 		string type
 		int amount
-		string type
 	}	
 
 	members_coupon_book {
@@ -203,6 +207,56 @@ erDiagram
 	royal_member }o--|| shop : manage
 	members_coupon_book ||--o{ coupon : contains
 	members_coupon_book ||--o{ member : have
+    handout_coupon_book ||--o{ shop : have
+    handout_coupon_book ||--o{ coupon : contains
 	published_coupon_book ||--o{ shop : have
 	published_coupon_book ||--o{ coupon : contains
 ```
+
+## 유스 케이스 정리
+
+### 회원은 게시된 쿠폰을 발행한다.
+
+1. 회원 정보를 조회한다.
+2. 쿠폰정보를 조회한다.
+3. 가게가 가진 게시된 쿠폰 북에서 쿠폰을 발행한다.
+4. 발급된 쿠폰을 사용자의 쿠폰북에 추가한다.
+5. 가게 단골 손님으로 등록한다.
+
+검증 목록
+- 회원은 가게에 게시된 쿠폰북에서 쿠폰을 꺼내 자신의 쿠폰 북에 담는다.
+- 이미 가진 쿠폰이라면 발행 할 수 없다.(도메인과 중복 검증)
+- 게시되지 않은 쿠폰은 발행 될 수 없다.(도메인과 중복 검증)
+
+### 가게 주인은 쿠폰을 가게에 게시한다.
+
+1. 가게 주인 정보를 조회한다.
+2. 게시할 쿠폰을 생성한다.
+3. 가게 주인은 가게에다 게시된 쿠폰북에 쿠폰을 게시한다.
+
+검증 목록
+- 가게 주인은 가게에 쿠폰을 게시할 수 있다.
+- 게시된 쿠폰북에 동일한 쿠폰이 있을 수 없다.(도메인과 중복 검증)
+
+
+### 가게 주인은 단골들에게 쿠폰을 뿌린다.
+
+1. 가게 주인 정보를 조회한다.
+2. 아직 나눠준적 없는 쿠폰이라면 쿠폰을 생성해 나눠준 쿠폰북에 쿠폰을 추가한다.
+3. 단골들 중 동일한 쿠폰을 아직 받지 않은 사용자에게 쿠폰을 뿌린다.
+
+검증 목록
+- 가게 주인은 가게에 쿠폰을 뿌릴 수 있다.
+- 이미 나눠줬던 쿠폰을 다시 나눠줄 때 새로운 단골들에게만 나눠준다.
+
+### 회원은 쿠폰을 사용한다.
+
+1. 회원 정보를 조회한다.
+2. 쿠폰 정보를 조회한다.
+3. 회원이 가진 쿠폰북에서 쿠폰을 사용한다.
+4. 가게에서 사용한 쿠폰을 받는다.
+
+검증 목록
+- 회원은 가게에 쿠폰을 사용할 수 있다.
+- 이미 사용한 쿠폰은 사용할 수 없다.(도메인과 중복 검증)
+- 게시되지 않거나 나눠주지 않은 쿠폰은 사용할 수 없다.(도메인과 중복 검증)

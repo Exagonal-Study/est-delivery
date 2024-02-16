@@ -7,14 +7,14 @@ class RoyalCustomers(
     private var customers: List<Member> = listOf()
 ) {
     fun handOutCoupon(coupon: Coupon) {
-        customers.forEach { it.receiveCoupon(coupon) }
+        customers.filter {
+            it.showMyCouponBook().contains(coupon).not()
+        }.forEach { it.receiveCoupon(coupon) }
     }
 
     fun addRoyalCustomers(vararg members: Member) {
         for (member in members) {
-            if (customers.contains(member)) {
-                throw IllegalArgumentException("이미 등록된 회원입니다.")
-            }
+            require(customers.contains(member).not()) { "이미 등록된 회원입니다." }
         }
         customers = customers + members
     }
