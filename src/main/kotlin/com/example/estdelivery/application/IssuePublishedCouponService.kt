@@ -2,8 +2,11 @@ package com.example.estdelivery.application
 
 import com.example.estdelivery.application.port.`in`.IssuePublishedCouponUseCase
 import com.example.estdelivery.application.port.`in`.command.IssuePublishedCouponCommand
-import com.example.estdelivery.application.port.out.*
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
+import com.example.estdelivery.application.port.out.LoadCouponStatePort
+import com.example.estdelivery.application.port.out.LoadMemberStatePort
+import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
+import com.example.estdelivery.application.port.out.UpdateMemberStatePort
+import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 import com.example.estdelivery.domain.member.Member
 import com.example.estdelivery.domain.shop.ShopOwner
 
@@ -38,7 +41,7 @@ class IssuePublishedCouponService(
     ) {
         if (!shopOwner.showRoyalCustomersInShop().contains(member)) {
             shopOwner.addRoyalCustomersInShop(member)
-            updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))
+            updateShopOwnerStatePort.update(shopOwner)
         }
     }
 
@@ -47,7 +50,7 @@ class IssuePublishedCouponService(
     }
 
     private fun getShopOwner(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
-        loadShopOwnerStatePort.findByShopId(issuePublishedCouponCommand.shopId).toShopOwner()
+        loadShopOwnerStatePort.findByShopId(issuePublishedCouponCommand.shopId)
 
     private fun getCoupon(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
         loadCouponStatePort.findByCouponId(issuePublishedCouponCommand.couponId)

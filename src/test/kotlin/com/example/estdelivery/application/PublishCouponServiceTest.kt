@@ -44,18 +44,18 @@ class PublishCouponServiceTest : FreeSpec({
             shopId,
             게시할_쿠폰
         )
-        val 프리퍼_주인_상태 = ShopOwnerState(가게, shopOwnerId)
-        val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
+        val 프리퍼_주인 = ShopOwner(가게, shopOwnerId)
+        val 변경된_프리퍼_주인 = slot<ShopOwner>()
 
         // when
-        every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
+        every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인
         every { createCouponStatePort.create(게시할_쿠폰) } returns 게시된_고정_할인_쿠폰
-        every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
+        every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인)) } returns Unit
 
         publishCouponService.publishCoupon(publishCouponCommand)
 
         // then
-        변경된_프리퍼_주인_상태.captured.toShopOwner().showPublishedCouponsInShop() shouldContain 게시된_고정_할인_쿠폰
+        변경된_프리퍼_주인.captured.showPublishedCouponsInShop() shouldContain 게시된_고정_할인_쿠폰
     }
 
     "게시된 쿠폰북에 동일한 쿠폰이 있을 수 없다." {
@@ -75,11 +75,11 @@ class PublishCouponServiceTest : FreeSpec({
             "프리퍼",
             shopId
         )
-        val 프리퍼_주인_상태 = ShopOwnerState(이미_쿠폰을_게시한_프리퍼, shopOwnerId)
+        val 프리퍼_주인 = ShopOwner(이미_쿠폰을_게시한_프리퍼, shopOwnerId)
 
         // when
 
-        every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
+        every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인
         every { createCouponStatePort.create(게시할_쿠폰) } returns 게시된_고정_할인_쿠폰
 
         // then

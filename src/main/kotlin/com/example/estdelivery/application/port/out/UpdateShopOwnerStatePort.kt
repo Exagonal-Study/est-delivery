@@ -1,7 +1,7 @@
 package com.example.estdelivery.application.port.out
 
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
+import com.example.estdelivery.domain.shop.ShopOwner
 
 interface UpdateShopOwnerStatePort {
-    fun update(shopOwnerState: ShopOwnerState)
+    fun update(shopOwner: ShopOwner)
 }

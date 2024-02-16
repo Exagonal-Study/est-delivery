@@ -5,8 +5,6 @@ import com.example.estdelivery.application.port.`in`.command.PublishCouponComman
 import com.example.estdelivery.application.port.out.CreateCouponStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
-import com.example.estdelivery.application.port.out.state.CouponState
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
 
 class PublishCouponService(
     private val loadShopOwnerPort: LoadShopOwnerStatePort,
@@ -22,9 +20,9 @@ class PublishCouponService(
      * @param publishCouponCommand 게시할 쿠폰 정보와 가게 주인 정보
      */
     override fun publishCoupon(publishCouponCommand: PublishCouponCommand) {
-        val shopOwner = loadShopOwnerPort.findById(publishCouponCommand.shopOwnerId).toShopOwner()
+        val shopOwner = loadShopOwnerPort.findById(publishCouponCommand.shopOwnerId)
         val publishedCoupon = createCouponStatePort.create(publishCouponCommand.coupon)
         shopOwner.publishCouponInShop(publishedCoupon)
-        updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))
+        updateShopOwnerStatePort.update(shopOwner)
     }
 }

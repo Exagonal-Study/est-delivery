@@ -9,6 +9,7 @@ import com.example.estdelivery.domain.fixture.게시된_쿠폰이_있는_프리�
 import com.example.estdelivery.domain.fixture.새로_창업해서_아무것도_없는_프리퍼
 import com.example.estdelivery.domain.fixture.일건창
 import com.example.estdelivery.domain.member.Member
+import com.example.estdelivery.domain.shop.ShopOwner
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
@@ -55,21 +56,21 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val shopId = 가게.id!!
         val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 프리퍼_주인_상태 = ShopOwnerState(가게, 1L)
-        val 변경된_프리퍼_주인_상태 = slot<ShopOwnerState>()
+        val 프리퍼_주인_상태 = ShopOwner(가게, 1L)
+        val 변경된_프리퍼_주인 = slot<ShopOwner>()
         val 변경된_회원_상태 = slot<Member>()
         every { loadMemberStatePort.findById(memberId) } returns 회원
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateMemberStatePort.update(capture(변경된_회원_상태)) } returns Unit
-        every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
+        every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인)) } returns Unit
 
         // when
         issuePublishedCouponUseCase.issuePublishedCoupon(issuePublishedCouponCommand)
 
         // then
         변경된_회원_상태.captured.showMyCouponBook() shouldContain 할인쿠폰
-        변경된_프리퍼_주인_상태.captured.toShopOwner().showShop().showRoyalCustomers() shouldContain 회원
+        변경된_프리퍼_주인.captured.showShop().showRoyalCustomers() shouldContain 회원
     }
 
     "사용자가 이미 발행한 쿠폰이라면 담을 수 없다." {
@@ -80,12 +81,12 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val shopId = 가게.id!!
         val couponId = 게시된_고정_할인_쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 프리퍼_주인_상태 = ShopOwnerState(게시된_쿠폰이_있는_프리퍼(게시된_고정_할인_쿠폰), 1L)
+        val 프리퍼_주인 = ShopOwner(게시된_쿠폰이_있는_프리퍼(게시된_고정_할인_쿠폰), 1L)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원
         every { loadCouponStatePort.findByCouponId(couponId) } returns 게시된_고정_할인_쿠폰
         every { updateMemberStatePort.update(any()) } returns Unit
-        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
+        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인
         every { updateShopOwnerStatePort.update(any()) } returns Unit
 
         // when & then
@@ -103,12 +104,12 @@ class IssuePublishedCouponServiceTest : FreeSpec({
         val shopId = 가게.id!!
         val couponId = 할인쿠폰.id!!
         val issuePublishedCouponCommand = IssuePublishedCouponCommand(couponId, memberId, shopId)
-        val 프리퍼_주인_상태 = ShopOwnerState(새로_창업해서_아무것도_없는_프리퍼(), 1L)
+        val 프리퍼_주인 = ShopOwner(새로_창업해서_아무것도_없는_프리퍼(), 1L)
 
         every { loadMemberStatePort.findById(memberId) } returns 회원
         every { loadCouponStatePort.findByCouponId(couponId) } returns 할인쿠폰
         every { updateMemberStatePort.update(any()) } returns Unit
-        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
+        every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인
         every { updateShopOwnerStatePort.update(any()) } returns Unit
 
         // when & then
