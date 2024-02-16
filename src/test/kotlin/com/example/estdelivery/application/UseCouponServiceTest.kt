@@ -55,7 +55,7 @@ class UseCouponServiceTest : FreeSpec({
 
         // when
         every { loadMemberStatePort.findById(memberId) } returns MemberState.from(회원)
-        every { loadCouponStatePort.findById(couponId) } returns CouponState.from(나눠준_비율_할인_쿠폰)
+        every { loadCouponStatePort.findById(couponId) } returns 나눠준_비율_할인_쿠폰
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateMemberStatePort.update(capture(변경된_회원_상태)) } returns Unit
         every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
@@ -84,7 +84,7 @@ class UseCouponServiceTest : FreeSpec({
         회원.useCoupon(나눠준_비율_할인_쿠폰)
 
         every { loadMemberStatePort.findById(memberId) } returns MemberState.from(회원)
-        every { loadCouponStatePort.findById(couponId) } returns CouponState.from(나눠준_비율_할인_쿠폰)
+        every { loadCouponStatePort.findById(couponId) } returns 나눠준_비율_할인_쿠폰
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateMemberStatePort.update(any()) } returns Unit
         every { updateShopOwnerStatePort.update(any()) } returns Unit
@@ -110,7 +110,7 @@ class UseCouponServiceTest : FreeSpec({
 
         // when
         every { loadMemberStatePort.findById(memberId) } returns MemberState.from(회원)
-        every { loadCouponStatePort.findById(couponId) } returns CouponState.from(나눠준_비율_할인_쿠폰)
+        every { loadCouponStatePort.findById(couponId) } returns 나눠준_비율_할인_쿠폰
         every { loadShopOwnerStatePort.findByShopId(shopId) } returns 프리퍼_주인_상태
         every { updateMemberStatePort.update(any()) } returns Unit
         every { updateShopOwnerStatePort.update(any()) } returns Unit

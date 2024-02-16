@@ -23,7 +23,7 @@ class UseCouponService(
      */
     override fun useCoupon(useCouponCommand: UseCouponCommand) {
         val member = loadMemberStatePort.findById(useCouponCommand.memberId).toMember()
-        val coupon = loadCouponStatePort.findById(useCouponCommand.couponId).toCoupon()
+        val coupon = loadCouponStatePort.findById(useCouponCommand.couponId)
         val shopOwner = loadShopOwnerStatePort.findByShopId(useCouponCommand.shopId).toShopOwner()
 
         member.useCoupon(coupon)

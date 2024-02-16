@@ -49,7 +49,7 @@ class PublishCouponServiceTest : FreeSpec({
 
         // when
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
-        every { createCouponStatePort.create(CouponState.from(게시할_쿠폰)) } returns CouponState.from(게시된_고정_할인_쿠폰)
+        every { createCouponStatePort.create(게시할_쿠폰) } returns 게시된_고정_할인_쿠폰
         every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
 
         publishCouponService.publishCoupon(publishCouponCommand)
@@ -80,7 +80,7 @@ class PublishCouponServiceTest : FreeSpec({
         // when
 
         every { loadShopOwnerPort.findById(shopOwnerId) } returns 프리퍼_주인_상태
-        every { createCouponStatePort.create(CouponState.from(게시할_쿠폰)) } returns CouponState.from(게시된_고정_할인_쿠폰)
+        every { createCouponStatePort.create(게시할_쿠폰) } returns 게시된_고정_할인_쿠폰
 
         // then
         shouldThrow<IllegalArgumentException> {

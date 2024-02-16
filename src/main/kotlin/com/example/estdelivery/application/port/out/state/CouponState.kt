@@ -8,7 +8,7 @@ import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.coupon.CouponType.IS_HAND_OUT
 import com.example.estdelivery.domain.coupon.CouponType.IS_PUBLISHED
 
-data class CouponState(
+class CouponState(
     private val name: String,
     private val description: String,
     private val amountType: CouponStateAmountType,

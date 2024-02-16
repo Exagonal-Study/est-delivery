@@ -5,9 +5,13 @@ import com.example.estdelivery.application.port.out.CreateCouponStatePort
 import com.example.estdelivery.application.port.out.LoadCouponStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
-import com.example.estdelivery.application.port.out.state.CouponState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
-import com.example.estdelivery.domain.fixture.*
+import com.example.estdelivery.domain.fixture.나눠준_비율_할인_쿠폰
+import com.example.estdelivery.domain.fixture.나눠준_쿠폰을_가진_삼건창
+import com.example.estdelivery.domain.fixture.나눠줄_쿠폰
+import com.example.estdelivery.domain.fixture.단골이_있는_멋진_프리퍼
+import com.example.estdelivery.domain.fixture.이건창
+import com.example.estdelivery.domain.fixture.일건창
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
 import io.mockk.every
@@ -44,8 +48,8 @@ class HandoutCouponServiceTest : FreeSpec({
         val handoutCouponCommand = HandoutCouponCommand(shopOwnerId, shopId, 나눠줄_쿠폰)
         every { loadShopOwnerStatePort.findById(shopOwnerId) } returns 프리퍼_주인_상태
         every { loadCouponStatePort.exists(any()) } returns false
-        every { createCouponStatePort.create(CouponState.from(나눠줄_쿠폰)) } returns CouponState.from(나눠준_비율_할인_쿠폰)
-        every { loadCouponStatePort.findById(any()) } returns CouponState.from(나눠준_비율_할인_쿠폰)
+        every { createCouponStatePort.create(나눠줄_쿠폰) } returns 나눠준_비율_할인_쿠폰
+        every { loadCouponStatePort.findById(any()) } returns 나눠준_비율_할인_쿠폰
         every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
 
         // when
@@ -70,8 +74,8 @@ class HandoutCouponServiceTest : FreeSpec({
         val handoutCouponCommand = HandoutCouponCommand(shopOwnerId, shopId, 나눠줄_쿠폰)
         every { loadShopOwnerStatePort.findById(shopOwnerId) } returns 프리퍼_주인_상태
         every { loadCouponStatePort.exists(any()) } returns false
-        every { createCouponStatePort.create(CouponState.from(나눠줄_쿠폰)) } returns CouponState.from(나눠준_비율_할인_쿠폰)
-        every { loadCouponStatePort.findById(any()) } returns CouponState.from(나눠준_비율_할인_쿠폰)
+        every { createCouponStatePort.create(나눠줄_쿠폰) } returns 나눠준_비율_할인_쿠폰
+        every { loadCouponStatePort.findById(any()) } returns 나눠준_비율_할인_쿠폰
         every { updateShopOwnerStatePort.update(capture(변경된_프리퍼_주인_상태)) } returns Unit
 
         // when

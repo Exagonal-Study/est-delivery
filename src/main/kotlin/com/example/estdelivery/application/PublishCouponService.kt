@@ -23,7 +23,7 @@ class PublishCouponService(
      */
     override fun publishCoupon(publishCouponCommand: PublishCouponCommand) {
         val shopOwner = loadShopOwnerPort.findById(publishCouponCommand.shopOwnerId).toShopOwner()
-        val publishedCoupon = createCouponStatePort.create(CouponState.from(publishCouponCommand.coupon)).toCoupon()
+        val publishedCoupon = createCouponStatePort.create(publishCouponCommand.coupon)
         shopOwner.publishCouponInShop(publishedCoupon)
         updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))
     }
