@@ -3,7 +3,6 @@ package com.example.estdelivery.application
 import com.example.estdelivery.application.port.`in`.IssuePublishedCouponUseCase
 import com.example.estdelivery.application.port.`in`.command.IssuePublishedCouponCommand
 import com.example.estdelivery.application.port.out.*
-import com.example.estdelivery.application.port.out.state.MemberState
 import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.domain.member.Member
 import com.example.estdelivery.domain.shop.ShopOwner
@@ -44,7 +43,7 @@ class IssuePublishedCouponService(
     }
 
     private fun updateMember(member: Member) {
-        updateMemberStatePort.update(MemberState.from(member))
+        updateMemberStatePort.update(member)
     }
 
     private fun getShopOwner(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
@@ -54,5 +53,5 @@ class IssuePublishedCouponService(
         loadCouponStatePort.findByCouponId(issuePublishedCouponCommand.couponId)
 
     private fun getMember(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
-        loadMemberStatePort.findById(issuePublishedCouponCommand.memberId).toMember()
+        loadMemberStatePort.findById(issuePublishedCouponCommand.memberId)
 }

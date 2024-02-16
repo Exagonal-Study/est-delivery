@@ -22,14 +22,14 @@ class UseCouponService(
      * @param useCouponCommand 사용할 쿠폰 정보와 회원 정보
      */
     override fun useCoupon(useCouponCommand: UseCouponCommand) {
-        val member = loadMemberStatePort.findById(useCouponCommand.memberId).toMember()
+        val member = loadMemberStatePort.findById(useCouponCommand.memberId)
         val coupon = loadCouponStatePort.findById(useCouponCommand.couponId)
         val shopOwner = loadShopOwnerStatePort.findByShopId(useCouponCommand.shopId).toShopOwner()
 
         member.useCoupon(coupon)
         shopOwner.receiveCoupon(coupon)
 
-        updateMemberStatePort.update(MemberState.from(member))
+        updateMemberStatePort.update(member)
         updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))
     }
 }
