@@ -4,8 +4,6 @@ import com.example.estdelivery.application.port.`in`.command.PublishCouponComman
 import com.example.estdelivery.application.port.out.CreateCouponStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
-import com.example.estdelivery.application.port.out.state.CouponState
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.domain.coupon.CouponBook
 import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
 import com.example.estdelivery.domain.fixture.게시할_쿠폰

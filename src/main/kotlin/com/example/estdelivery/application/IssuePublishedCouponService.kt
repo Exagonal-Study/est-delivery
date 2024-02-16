@@ -53,7 +53,7 @@ class IssuePublishedCouponService(
         loadShopOwnerStatePort.findByShopId(issuePublishedCouponCommand.shopId)
 
     private fun getCoupon(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
-        loadCouponStatePort.findByCouponId(issuePublishedCouponCommand.couponId)
+        loadCouponStatePort.findById(issuePublishedCouponCommand.couponId)
 
     private fun getMember(issuePublishedCouponCommand: IssuePublishedCouponCommand) =
         loadMemberStatePort.findById(issuePublishedCouponCommand.memberId)
