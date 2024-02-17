@@ -57,6 +57,7 @@ cmake-build-*/
 out/
 
 !src/main/kotlin/com/example/estdelivery/application/port/out
+!src/test/kotlin/com/example/estdelivery/application/port/out
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

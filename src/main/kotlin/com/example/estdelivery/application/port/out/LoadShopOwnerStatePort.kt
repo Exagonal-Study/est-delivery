@@ -1,8 +1,8 @@
 package com.example.estdelivery.application.port.out
 
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
+import com.example.estdelivery.domain.shop.ShopOwner
 
 interface LoadShopOwnerStatePort {
-    fun findById(shopOwnerId: Long): ShopOwnerState
-    fun findByShopId(shopId: Long): ShopOwnerState
+    fun findById(shopOwnerId: Long): ShopOwner
+    fun findByShopId(shopId: Long): ShopOwner
 }

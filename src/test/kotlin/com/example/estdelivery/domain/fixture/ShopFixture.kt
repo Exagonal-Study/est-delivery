@@ -19,7 +19,7 @@ fun 나눠준_쿠폰이_있는_프리퍼(vararg coupon: Coupon) = Shop(
     PublishedCouponBook(CouponBook(listOf())),
     HandOutCouponBook(CouponBook(listOf(*coupon))),
     UsedCouponBook(CouponBook(listOf())),
-    RoyalCustomers(listOf(나눠준_쿠폰을_가진_삼건창(), 일건창(), 이건창())),
+    RoyalCustomers(listOf(나눠준_쿠폰을_가진_삼건창(나눠준_비율_할인_쿠폰), 일건창(), 이건창())),
     가게_이름,
     1L
 )

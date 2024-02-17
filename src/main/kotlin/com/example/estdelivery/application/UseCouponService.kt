@@ -2,9 +2,11 @@ package com.example.estdelivery.application
 
 import com.example.estdelivery.application.port.`in`.UseCouponUseCase
 import com.example.estdelivery.application.port.`in`.command.UseCouponCommand
-import com.example.estdelivery.application.port.out.*
-import com.example.estdelivery.application.port.out.state.MemberState
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
+import com.example.estdelivery.application.port.out.LoadCouponStatePort
+import com.example.estdelivery.application.port.out.LoadMemberStatePort
+import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
+import com.example.estdelivery.application.port.out.UpdateMemberStatePort
+import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 
 class UseCouponService(
     private val loadMemberStatePort: LoadMemberStatePort,
@@ -22,14 +24,14 @@ class UseCouponService(
      * @param useCouponCommand 사용할 쿠폰 정보와 회원 정보
      */
     override fun useCoupon(useCouponCommand: UseCouponCommand) {
-        val member = loadMemberStatePort.findById(useCouponCommand.memberId).toMember()
-        val coupon = loadCouponStatePort.findById(useCouponCommand.couponId).toCoupon()
-        val shopOwner = loadShopOwnerStatePort.findByShopId(useCouponCommand.shopId).toShopOwner()
+        val member = loadMemberStatePort.findById(useCouponCommand.memberId)
+        val coupon = loadCouponStatePort.findById(useCouponCommand.couponId)
+        val shopOwner = loadShopOwnerStatePort.findByShopId(useCouponCommand.shopId)
 
         member.useCoupon(coupon)
         shopOwner.receiveCoupon(coupon)
 
-        updateMemberStatePort.update(MemberState.from(member))
-        updateShopOwnerStatePort.update(ShopOwnerState.from(shopOwner))
+        updateMemberStatePort.update(member)
+        updateShopOwnerStatePort.update(shopOwner)
     }
 }

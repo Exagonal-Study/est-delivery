@@ -1,9 +1,8 @@
 package com.example.estdelivery.application.port.out
 
-import com.example.estdelivery.application.port.out.state.CouponState
+import com.example.estdelivery.domain.coupon.Coupon
 
 interface LoadCouponStatePort {
-    fun findByCouponId(couponId: Long): CouponState
     fun exists(couponId: Long): Boolean
-    fun findById(couponId: Long): CouponState
+    fun findById(couponId: Long): Coupon
 }
