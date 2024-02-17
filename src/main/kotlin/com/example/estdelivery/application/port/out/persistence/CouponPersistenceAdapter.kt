@@ -7,9 +7,9 @@ import com.example.estdelivery.application.port.out.persistence.mapper.toCoupon
 import com.example.estdelivery.application.port.out.persistence.repository.CouponRepository
 import com.example.estdelivery.domain.coupon.Coupon
 import jakarta.transaction.Transactional
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class CouponPersistenceAdapter(
     private val couponRepository: CouponRepository
 ) : CreateCouponStatePort, LoadCouponStatePort {

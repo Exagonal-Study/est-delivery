@@ -7,9 +7,9 @@ import com.example.estdelivery.application.port.out.persistence.mapper.toShopOwn
 import com.example.estdelivery.application.port.out.persistence.repository.ShopOwnerRepository
 import com.example.estdelivery.application.port.out.persistence.repository.ShopRepository
 import com.example.estdelivery.domain.shop.ShopOwner
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class ShopOwnerPersistenceAdapter(
     private val shopOwnerRepository: ShopOwnerRepository,
     private val shopRepository: ShopRepository
