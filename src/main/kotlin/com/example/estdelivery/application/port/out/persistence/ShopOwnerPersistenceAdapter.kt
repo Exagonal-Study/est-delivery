@@ -7,6 +7,7 @@ import com.example.estdelivery.application.port.out.persistence.mapper.toShopOwn
 import com.example.estdelivery.application.port.out.persistence.repository.ShopOwnerRepository
 import com.example.estdelivery.application.port.out.persistence.repository.ShopRepository
 import com.example.estdelivery.domain.shop.ShopOwner
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Component
 
 @Component
@@ -25,6 +26,7 @@ class ShopOwnerPersistenceAdapter(
         return toShopOwner(shopOwnerEntity)
     }
 
+    @Transactional
     override fun update(shopOwner: ShopOwner) {
         shopOwnerRepository.save(fromShopOwner(shopOwner))
     }
