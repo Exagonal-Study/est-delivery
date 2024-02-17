@@ -159,33 +159,40 @@ title: 이달의 민족
 ---
 
 erDiagram
-
 	royal_member {
 		long shop_id
 		long member_id
 	}
+	
+	shop_owner {
+        long id pk
+        string name
+        long shop_id
+    }
 
 	shop {
 		long id pk
 		string name
-		long boss_id
-		long published_coupon_book_id
 	}
 
 	member {
 		long id pk
 		string name
-		long members_coupon_book_id
 	}
 
-	published_coupon_book {
+	publish_coupon_book {
 		long shop_id
 		long coupon_id
 	}
 
     handout_coupon_book {
-    long shop_id
-    long coupon_id
+        long shop_id
+        long coupon_id
+    }
+    
+    use_coupon_book {
+        long member_id
+        long coupon_id
     }
 
     coupon {
@@ -197,20 +204,22 @@ erDiagram
 		int amount
 	}	
 
-	members_coupon_book {
+	member_coupon_book {
 		long member_id
 		long coupon_id
-		string status
 	}
-
+	
 	royal_member }o--|| member : contain
-	royal_member }o--|| shop : manage
-	members_coupon_book ||--o{ coupon : contains
-	members_coupon_book ||--o{ member : have
-    handout_coupon_book ||--o{ shop : have
-    handout_coupon_book ||--o{ coupon : contains
-	published_coupon_book ||--o{ shop : have
-	published_coupon_book ||--o{ coupon : contains
+    member_coupon_book }o--|| member : have
+    member_coupon_book }o--|| coupon : contains
+    handout_coupon_book }o--|| coupon : contains
+	publish_coupon_book }o--|| coupon : contains
+    use_coupon_book }o--|| coupon : contains
+    royal_member }o--|| shop : manage
+    handout_coupon_book }o--|| shop : have
+    publish_coupon_book }o--|| shop : have
+    shop_owner ||--|| shop : own
+    use_coupon_book }o--|| shop : have
 ```
 
 ## 유스 케이스 정리
