@@ -4,5 +4,5 @@ import com.example.estdelivery.domain.member.Member
 
 
 interface UpdateMemberStatePort {
-    fun update(memberState: Member)
+    fun update(member: Member)
 }
