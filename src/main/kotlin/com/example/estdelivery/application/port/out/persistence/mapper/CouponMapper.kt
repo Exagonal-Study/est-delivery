@@ -8,7 +8,7 @@ import com.example.estdelivery.application.port.out.persistence.entity.CouponSta
 import com.example.estdelivery.domain.coupon.Coupon
 import com.example.estdelivery.domain.coupon.CouponType
 
-internal fun from(entity: CouponEntity): Coupon {
+internal fun toCoupon(entity: CouponEntity): Coupon {
     return when (entity.amountType) {
         RATE -> Coupon.RateDiscountCoupon(
             entity.amount,
@@ -28,7 +28,7 @@ internal fun from(entity: CouponEntity): Coupon {
     }
 }
 
-internal fun of(coupon: Coupon): CouponEntity {
+internal fun fromCoupon(coupon: Coupon): CouponEntity {
     return CouponEntity(
         coupon.name,
         coupon.description,

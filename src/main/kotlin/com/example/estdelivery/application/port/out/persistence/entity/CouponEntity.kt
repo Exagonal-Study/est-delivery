@@ -1,5 +1,6 @@
 package com.example.estdelivery.application.port.out.persistence.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -19,6 +20,7 @@ class CouponEntity(
     var type: CouponStateType,
     var amount: Int,
     @Id
+    @Column(name = "coupon_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 )

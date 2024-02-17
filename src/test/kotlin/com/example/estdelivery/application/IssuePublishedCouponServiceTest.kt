@@ -1,8 +1,11 @@
 package com.example.estdelivery.application
 
 import com.example.estdelivery.application.port.`in`.command.IssuePublishedCouponCommand
-import com.example.estdelivery.application.port.out.*
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
+import com.example.estdelivery.application.port.out.LoadCouponStatePort
+import com.example.estdelivery.application.port.out.LoadMemberStatePort
+import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
+import com.example.estdelivery.application.port.out.UpdateMemberStatePort
+import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
 import com.example.estdelivery.domain.fixture.게시된_고정_할인_쿠폰
 import com.example.estdelivery.domain.fixture.게시된_쿠폰을_가진_사건창
 import com.example.estdelivery.domain.fixture.게시된_쿠폰이_있는_프리퍼

@@ -6,12 +6,10 @@ import com.example.estdelivery.application.port.out.LoadMemberStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
 import com.example.estdelivery.application.port.out.UpdateMemberStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.domain.fixture.나눠준_비율_할인_쿠폰
 import com.example.estdelivery.domain.fixture.나눠준_쿠폰을_가진_삼건창
 import com.example.estdelivery.domain.fixture.나눠준_쿠폰이_있는_프리퍼
 import com.example.estdelivery.domain.fixture.새로_창업해서_아무것도_없는_프리퍼
-import com.example.estdelivery.domain.fixture.일건창
 import com.example.estdelivery.domain.member.Member
 import com.example.estdelivery.domain.shop.ShopOwner
 import io.kotest.assertions.throwables.shouldThrow

@@ -5,7 +5,6 @@ import com.example.estdelivery.application.port.out.CreateCouponStatePort
 import com.example.estdelivery.application.port.out.LoadCouponStatePort
 import com.example.estdelivery.application.port.out.LoadShopOwnerStatePort
 import com.example.estdelivery.application.port.out.UpdateShopOwnerStatePort
-import com.example.estdelivery.application.port.out.state.ShopOwnerState
 import com.example.estdelivery.domain.fixture.나눠준_비율_할인_쿠폰
 import com.example.estdelivery.domain.fixture.나눠준_쿠폰을_가진_삼건창
 import com.example.estdelivery.domain.fixture.나눠줄_쿠폰
