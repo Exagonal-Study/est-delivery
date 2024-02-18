@@ -11,6 +11,6 @@ import org.springframework.transaction.annotation.Transactional
 class FindUserCouponService(
     val findUserCouponPort: FindUserCouponPort
 ) : FindUserCouponUseCase {
-    override fun findUserCoupon(userId: Long): List<UserCouponResponse> =
-        findUserCouponPort.findByUserId(userId).map { UserCouponResponse(it.code, it.configId) }
+    override fun findUserCoupons(userId: Long): List<UserCouponResponse> =
+        findUserCouponPort.findByUserId(userId).map { UserCouponResponse(it.code.get(), it.configId) }
 }
